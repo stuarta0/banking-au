@@ -9,10 +9,5 @@ namespace Banking.AU.tests.ATO
     [TestFixture]
     public class SuperStreamFile_Fixture
     {
-        [Test]
-        public void Instantiation()
-        {
-            var file = new SuperStreamFile();
-        }
     }
 }

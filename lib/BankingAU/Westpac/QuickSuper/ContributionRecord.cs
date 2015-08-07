@@ -75,7 +75,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// I = Intersex/Indeterminate
         /// N = Not stated/Inadequeatly described
         /// </summary>
-        public char? Gender { get; set; }
+        public string Gender { get; set; }
 
         /// <summary>
         /// Optional.
