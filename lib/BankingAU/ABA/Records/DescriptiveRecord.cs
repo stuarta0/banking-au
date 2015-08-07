@@ -1,9 +1,10 @@
-﻿using FileHelpers;
+﻿using Banking.AU.ABA.Converters;
+using FileHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Banking.AU.ABA
+namespace Banking.AU.ABA.Records
 {
     [FixedLengthRecord]
     public class DescriptiveRecord
@@ -15,7 +16,7 @@ namespace Banking.AU.ABA
         public string Blank1;
 
         [FieldFixedLength(2)]
-        // TODO: Pad zero, 1-based
+        [FieldConverter(typeof(Int32Converter), 2)]
         public int ReelSequenceNumber;
 
         [FieldFixedLength(3)]
@@ -29,7 +30,7 @@ namespace Banking.AU.ABA
         public string UserSpecification;
 
         [FieldFixedLength(6)]
-        // TODO: Right justified, zero padding
+        [FieldConverter(typeof(Int32Converter), 6)]
         public int UserIdentificationNumber;
 
         [FieldFixedLength(12)]

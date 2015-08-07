@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABA\EnumConverter_Fixture.cs" />
+    <Compile Include="ABA\StringConverter_Fixture.cs" />
+    <Compile Include="ABA\Int32Converter_Fixture.cs" />
     <Compile Include="ABA\CurrencyConverter_Fixture.cs" />
     <Compile Include="ATO\SuperStreamFile_Fixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

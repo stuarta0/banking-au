@@ -40,10 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABA\ABAFile.cs" />
     <Compile Include="ABA\Converters\CurrencyConverter.cs" />
-    <Compile Include="ABA\FileTotalRecord.cs" />
-    <Compile Include="ABA\DetailRecord.cs" />
-    <Compile Include="ABA\DescriptiveRecord.cs" />
+    <Compile Include="ABA\Converters\EnumConverter.cs" />
+    <Compile Include="ABA\Converters\StringConverter.cs" />
+    <Compile Include="ABA\Converters\Int32Converter.cs" />
+    <Compile Include="ABA\Records\FileTotalRecord.cs" />
+    <Compile Include="ABA\Records\DetailRecord.cs" />
+    <Compile Include="ABA\Records\DescriptiveRecord.cs" />
+    <Compile Include="ABA\Records\Indicator.cs" />
+    <Compile Include="ABA\Records\TransactionCode.cs" />
     <Compile Include="ATO\SuperStreamFile.cs" />
     <Compile Include="ATO\SuperStream\DefinedBenefit.cs" />
     <Compile Include="ATO\SuperStream\DefinedBenefits\Contributions.cs" />
@@ -57,6 +63,7 @@
     <Compile Include="ATO\SuperStream\Record.cs" />
     <Compile Include="ATO\SuperStream\Sender.cs" />
     <Compile Include="ATO\SuperStream\SuperFundMember.cs" />
+    <Compile Include="Common\Attributes\FileRepresentationAttribute.cs" />
     <Compile Include="Common\Validation\IValidationError.cs" />
     <Compile Include="Common\IValidator.cs" />
     <Compile Include="Common\Validation\ValidationError.cs" />

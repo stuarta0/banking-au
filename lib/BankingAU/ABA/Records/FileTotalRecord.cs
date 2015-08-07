@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Banking.AU.ABA
+namespace Banking.AU.ABA.Records
 {
     [FixedLengthRecord]
     public class FileTotalRecord
@@ -13,7 +13,7 @@ namespace Banking.AU.ABA
         public int RecordType;
 
         [FieldFixedLength(7)]
-        // TODO: ensure 999-999 format
+        // TODO: format 000-000
         public string BSB;
 
         [FieldFixedLength(12)]
@@ -35,7 +35,7 @@ namespace Banking.AU.ABA
         public string Blank2;
 
         [FieldFixedLength(6)]
-        // TODO: right justified, zero padding
+        [FieldConverter(typeof(Int32Converter), 6)]
         public int CountOfType1;
 
         [FieldFixedLength(40)]

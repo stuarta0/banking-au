@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Banking.AU.ABA
+namespace Banking.AU.ABA.Records
 {
     [FixedLengthRecord]
     public class DetailRecord
@@ -17,15 +17,15 @@ namespace Banking.AU.ABA
         public string BSB;
 
         [FieldFixedLength(9)]
-        // TODO: right justified
+        [FieldConverter(typeof(StringConverter), 9)]
         public string AccountNumber;
 
         [FieldFixedLength(1)]
-        // TODO: N,W,X,Y or blank
-        public string Indicator;
+        [FieldConverter(typeof(EnumConverter), typeof(Indicator))]
+        public Indicator Indicator;
 
         [FieldFixedLength(2)]
-        public int TransactionCode;
+        public TransactionCode TransactionCode;
 
         [FieldFixedLength(10)]
         [FieldConverter(typeof(CurrencyConverter))]
@@ -44,7 +44,7 @@ namespace Banking.AU.ABA
         public string TraceRecordBSB;
 
         [FieldFixedLength(9)]
-        // TODO: right justified
+        [FieldConverter(typeof(StringConverter), 9)]
         public string TraceRecordAccountNumber;
 
         [FieldFixedLength(16)]
