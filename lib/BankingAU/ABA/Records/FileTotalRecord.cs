@@ -20,14 +20,17 @@ namespace Banking.AU.ABA.Records
         public string Blank1;
 
         [FieldFixedLength(10)]
+        [FieldAlign(AlignMode.Right, '0')]
         [FieldConverter(typeof(CurrencyConverter))]
         public decimal NetTotalAmount;
 
         [FieldFixedLength(10)]
+        [FieldAlign(AlignMode.Right, '0')]
         [FieldConverter(typeof(CurrencyConverter))]
         public decimal CreditTotalAmount;
 
         [FieldFixedLength(10)]
+        [FieldAlign(AlignMode.Right, '0')]
         [FieldConverter(typeof(CurrencyConverter))]
         public decimal DebitTotalAmount;
 
@@ -35,7 +38,7 @@ namespace Banking.AU.ABA.Records
         public string Blank2;
 
         [FieldFixedLength(6)]
-        [FieldConverter(typeof(Int32Converter), 6)]
+        [FieldAlign(AlignMode.Right, '0')]
         public int CountOfType1;
 
         [FieldFixedLength(40)]

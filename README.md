@@ -9,13 +9,17 @@ This library implements the required file specification (with the assistance of 
 
 https://quicksuper.westpac.com.au/
 
-### Australian Taxation Office (ATO) SuperStream Alternate File Format (SAFF)
-
-http://softwaredevelopers.ato.gov.au/ato-disclaimer?destination=sites/default/files/resource-attachments/SuperStream_alternative_file_format.xlsx
-
-## Future Formats
-
 ### Australian Bankers Association (ABA) or Cemtext File Format (EFT)
 
 https://www.cemtexaba.com/aba-format/cemtex-aba-file-format-details
+
 http://www.brad-smith.info/blog/archives/405
+
+## Preliminary Support
+
+### Australian Taxation Office (ATO) SuperStream Alternate File Format (SAFF)
+
+POCO's exist to represent file structure, but no validation or IO is provided.
+
+http://softwaredevelopers.ato.gov.au/ato-disclaimer?destination=sites/default/files/resource-attachments/SuperStream_alternative_file_format.xlsx
+

@@ -16,7 +16,7 @@ namespace Banking.AU.ABA.Records
         public string Blank1;
 
         [FieldFixedLength(2)]
-        [FieldConverter(typeof(Int32Converter), 2)]
+        [FieldAlign(AlignMode.Right, '0')]
         public int ReelSequenceNumber;
 
         [FieldFixedLength(3)]
@@ -30,7 +30,7 @@ namespace Banking.AU.ABA.Records
         public string UserSpecification;
 
         [FieldFixedLength(6)]
-        [FieldConverter(typeof(Int32Converter), 6)]
+        [FieldAlign(AlignMode.Right, '0')]
         public int UserIdentificationNumber;
 
         [FieldFixedLength(12)]
@@ -38,7 +38,7 @@ namespace Banking.AU.ABA.Records
         public string EntryDescriptor;
 
         [FieldFixedLength(6)]
-        [FieldConverter(ConverterKind.Date, "DDMMYY")]
+        [FieldConverter(ConverterKind.Date, "ddMMyy")]
         public DateTime ProcessDate;
 
         [FieldFixedLength(40)]
@@ -47,6 +47,8 @@ namespace Banking.AU.ABA.Records
         public DescriptiveRecord()
         {
             RecordType = 0;
+            ReelSequenceNumber = 1;
+            ProcessDate = DateTime.Today;
         }
     }
 }

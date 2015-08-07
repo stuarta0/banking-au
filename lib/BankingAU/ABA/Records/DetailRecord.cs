@@ -17,7 +17,7 @@ namespace Banking.AU.ABA.Records
         public string BSB;
 
         [FieldFixedLength(9)]
-        [FieldConverter(typeof(StringConverter), 9)]
+        [FieldAlign(AlignMode.Right, ' ')]
         public string AccountNumber;
 
         [FieldFixedLength(1)]
@@ -25,9 +25,11 @@ namespace Banking.AU.ABA.Records
         public Indicator Indicator;
 
         [FieldFixedLength(2)]
+        [FieldConverter(typeof(EnumConverter), typeof(TransactionCode))]
         public TransactionCode TransactionCode;
 
         [FieldFixedLength(10)]
+        [FieldAlign(AlignMode.Right, '0')]
         [FieldConverter(typeof(CurrencyConverter))]
         public decimal Amount;
 
@@ -44,7 +46,7 @@ namespace Banking.AU.ABA.Records
         public string TraceRecordBSB;
 
         [FieldFixedLength(9)]
-        [FieldConverter(typeof(StringConverter), 9)]
+        [FieldAlign(AlignMode.Right, ' ')]
         public string TraceRecordAccountNumber;
 
         [FieldFixedLength(16)]
@@ -52,6 +54,7 @@ namespace Banking.AU.ABA.Records
         public string RemitterName;
 
         [FieldFixedLength(8)]
+        [FieldAlign(AlignMode.Right, '0')]
         [FieldConverter(typeof(CurrencyConverter))]
         public decimal WithholdingTaxAmount;
 

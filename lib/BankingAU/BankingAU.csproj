@@ -64,6 +64,7 @@
     <Compile Include="ATO\SuperStream\Sender.cs" />
     <Compile Include="ATO\SuperStream\SuperFundMember.cs" />
     <Compile Include="Common\Attributes\FileRepresentationAttribute.cs" />
+    <Compile Include="ABA\ABAFileWriter.cs" />
     <Compile Include="Common\Validation\IValidationError.cs" />
     <Compile Include="Common\IValidator.cs" />
     <Compile Include="Common\Validation\ValidationError.cs" />

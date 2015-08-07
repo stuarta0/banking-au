@@ -13,20 +13,20 @@ namespace Banking.AU.tests.ABA
         public void From_decimal()
         {
             // Arrange
-            var c = new CurrencyConverter(10);
+            var c = new CurrencyConverter();
 
             // Act
             var result = c.FieldToString(1234.56m);
 
             // Assert
-            Assert.AreEqual("0000123456", result);
+            Assert.AreEqual("123456", result);
         }
 
         [Test]
         public void To_decimal()
         {
             // Arrange
-            var c = new CurrencyConverter(10);
+            var c = new CurrencyConverter();
 
             // Act
             var result = c.StringToField("0000123456");

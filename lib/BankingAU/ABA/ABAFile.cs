@@ -19,5 +19,27 @@ namespace Banking.AU.ABA
             DetailRecords = new List<DetailRecord>();
             FileTotalRecord = new FileTotalRecord();
         }
+
+        public void GenerateTotalRecord()
+        {
+            decimal net = 0, credit = 0, debit = 0;
+            foreach (var detail in DetailRecords)
+            {
+                net += detail.Amount;
+                if (detail.TransactionCode == TransactionCode.CreditItem)
+                    credit += detail.Amount;
+                else if (detail.TransactionCode == TransactionCode.DebitItem)
+                    debit += detail.Amount;
+            }
+
+            FileTotalRecord = new FileTotalRecord()
+            {
+                BSB = "999-999",
+                NetTotalAmount = net,
+                CreditTotalAmount = credit,
+                DebitTotalAmount = debit,
+                CountOfType1 = DetailRecords.Count
+            };
+        }
     }
 }
