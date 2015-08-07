@@ -14,7 +14,7 @@ namespace Banking.AU.tests.Westpac
         /// Returns a record that has the minimum amount of information to pass validation.
         /// </summary>
         /// <returns></returns>
-        private ContributionRecord CreateValidRecord()
+        internal static ContributionRecord CreateValidRecord()
         {
             return new ContributionRecord()
             {

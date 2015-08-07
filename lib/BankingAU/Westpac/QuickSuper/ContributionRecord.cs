@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Banking.AU.Westpac.QuickSuper
 {
-    [IgnoreFirst]
+    [DelimitedRecord(",")]
+    [IgnoreFirst(1)]
     public class ContributionRecord
     {
         /// <summary>

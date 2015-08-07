@@ -6,21 +6,32 @@ using System.Text;
 
 namespace Banking.AU.Westpac.QuickSuper
 {
-    public class ContributionFileReader
+    public class ContributionFile
     {
-        public ContributionFileReader()
+        private static string HEADER;
+
+        static ContributionFile()
         {
-            
+            var props = new List<string>();
+            foreach (var p in typeof(ContributionRecord).GetProperties())
+                props.Add(p.Name);
+            HEADER = String.Join(",", props.ToArray());
+        }
+
+        public ContributionFile()
+        {
+            DateTimeFormat = null;
         }
 
         /// <summary>
         /// Warning: usage sets global singleton value for FileHelpers engine.
         /// Using two or more readers with different formats simultaneously will fail.
+        /// TODO: pull request from FileHelpers and allow FieldBase.Converter to have public set.
         /// </summary>
         public string DateTimeFormat
         {
             get { return FileHelpers.ConverterBase.DefaultDateTimeFormat; }
-            set { FileHelpers.ConverterBase.DefaultDateTimeFormat = value; }
+            set { FileHelpers.ConverterBase.DefaultDateTimeFormat = value ?? "dd-MMM-yy"; }
         }
 
 
@@ -33,19 +44,21 @@ namespace Banking.AU.Westpac.QuickSuper
         public IList<ContributionRecord> Read(TextReader stream)
         {
             var engine = new DelimitedFileEngine<ContributionRecord>();
+            engine.ErrorMode = ErrorMode.ThrowException;
             return engine.ReadStream(stream);
         }
 
         public void Write(string filename, IList<ContributionRecord> records)
         {
-            using (var stream = File.OpenWrite(filename))
-            using (var writer = new StreamWriter(stream))
-                Write(writer, records);
+            using (var stream = File.CreateText(filename))
+                Write(stream, records);
         }
 
         public void Write(TextWriter stream, IList<ContributionRecord> records)
         {
             var engine = new DelimitedFileEngine<ContributionRecord>();
+            engine.HeaderText = HEADER; // Contribution file must have header row
+            engine.ErrorMode = ErrorMode.ThrowException;
             engine.WriteStream(stream, records);
         }
 

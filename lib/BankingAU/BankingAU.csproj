@@ -62,7 +62,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Westpac\QuickSuper\ContributionFileReader.cs" />
+    <Compile Include="Westpac\QuickSuper\ContributionFile.cs" />
     <Compile Include="Westpac\QuickSuper\ContributionRecord.cs" />
     <Compile Include="Westpac\QuickSuper\Validator.cs" />
   </ItemGroup>
