@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABA\Converters\CurrencyConverter.cs" />
+    <Compile Include="ABA\FileTotalRecord.cs" />
+    <Compile Include="ABA\DetailRecord.cs" />
+    <Compile Include="ABA\DescriptiveRecord.cs" />
     <Compile Include="ATO\SuperStreamFile.cs" />
     <Compile Include="ATO\SuperStream\DefinedBenefit.cs" />
     <Compile Include="ATO\SuperStream\DefinedBenefits\Contributions.cs" />
