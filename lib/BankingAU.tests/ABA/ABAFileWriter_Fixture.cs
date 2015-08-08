@@ -86,11 +86,11 @@ namespace Banking.AU.tests.ABA
             var reader = new StreamReader(stream);
             stream.Position = 0;
             var line = reader.ReadLine();
-            Assert.AreEqual(120, line.Length);
+            Assert.AreEqual("0                 01WBC       John Citizen              001234PAYROLL     300715                                        ", line);
             line = reader.ReadLine();
-            Assert.AreEqual(120, line.Length);
+            Assert.AreEqual("1000-000  00-1234N500000123456Citizen. John Michael           5550033890123456  999-999  43-2100COMMBANK        00012340", line);
             line = reader.ReadLine();
-            Assert.AreEqual(120, line.Length);
+            Assert.AreEqual("7999-999            000012345600001234560000000000                        000001                                        ", line);
             Assert.IsNull(reader.ReadLine());
             stream.Dispose();
         }

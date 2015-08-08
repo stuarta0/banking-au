@@ -45,10 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ABA\EnumConverter_Fixture.cs" />
-    <Compile Include="ABA\StringConverter_Fixture.cs" />
-    <Compile Include="ABA\Int32Converter_Fixture.cs" />
     <Compile Include="ABA\CurrencyConverter_Fixture.cs" />
     <Compile Include="ATO\SuperStreamFile_Fixture.cs" />
+    <Compile Include="Common\BSB_Fixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Westpac\QuickSuperFile_Fixture.cs" />
     <Compile Include="Westpac\QuickSuperValidator_Fixture.cs" />

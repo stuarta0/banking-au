@@ -13,7 +13,6 @@ namespace Banking.AU.ABA.Records
         public int RecordType;
 
         [FieldFixedLength(7)]
-        // TODO: format 000-000
         public string BSB;
 
         [FieldFixedLength(9)]
@@ -42,7 +41,6 @@ namespace Banking.AU.ABA.Records
         public string LodgementReference;
 
         [FieldFixedLength(7)]
-        // TODO: format 000-000
         public string TraceRecordBSB;
 
         [FieldFixedLength(9)]
@@ -61,6 +59,16 @@ namespace Banking.AU.ABA.Records
         public DetailRecord()
         {
             RecordType = 1;
+        }
+
+        public void SetBSB(int bank, Common.BSB.State state, int branch)
+        {
+            BSB = Common.BSB.Encode(bank, state, branch);
+        }
+
+        private void SetTraceBSB(int bank, Common.BSB.State state, int branch)
+        {
+            TraceRecordBSB = Common.BSB.Encode(bank, state, branch);
         }
     }
 }
