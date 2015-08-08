@@ -15,8 +15,26 @@ namespace Banking.AU.ABA
 
         public ABAFile Read(string filename)
         {
-            using (var stream = File.OpenText(filename))
-                return Read(stream);
+            var engine = new MultiRecordEngine(typeof(DescriptiveRecord),
+                                               typeof(DetailRecord),
+                                               typeof(FileTotalRecord));
+            engine.RecordSelector = new RecordTypeSelector(ABAFormatSelector);
+            var records = engine.ReadFile(filename); // succeeds
+
+            var file = new ABAFile();
+            foreach (var r in records)
+            {
+                if (r is DescriptiveRecord)
+                    file.DescriptiveRecord = (DescriptiveRecord)r;
+                else if (r is DetailRecord)
+                    file.DetailRecords.Add((DetailRecord)r);
+                else if (r is FileTotalRecord)
+                    file.FileTotalRecord = (FileTotalRecord)r;
+            }
+            return file;
+
+            //using (var stream = File.OpenText(filename))
+            //    return Read(stream);
         }
 
         public ABAFile Read(TextReader stream)
@@ -25,7 +43,7 @@ namespace Banking.AU.ABA
                                                typeof(DetailRecord),
                                                typeof(FileTotalRecord));
             engine.RecordSelector = new RecordTypeSelector(ABAFormatSelector);
-            var records = engine.ReadStream(stream);
+            var records = engine.ReadStream(stream); // fails, patch FileHelpers
 
             var file = new ABAFile();
             foreach (var r in records)
@@ -66,7 +84,7 @@ namespace Banking.AU.ABA
             if (recordLine.Length == 0)
                 return null;
 
-            var type = Convert.ToInt32(recordLine[0]);
+            var type = Convert.ToInt32(recordLine[0]) - 48; // ascii 48 = '0'
             if (type == 0)
                 return typeof(DescriptiveRecord);
             else if (type == 1)
@@ -75,34 +93,5 @@ namespace Banking.AU.ABA
                 return typeof(FileTotalRecord);
             return null;
         }
-
-        // Class to provide runtime custom DateTime format
-        //private class DateTimeConverter : ConverterBase
-        //{
-        //    static DateTimeConverter()
-        //    {
-        //    }
-
-        //    public string DateTimeFormat { get; set; }
-
-        //    public override string FieldToString(object from)
-        //    {
-        //        if (from == null)
-        //            return null;
-        //        return ((DateTime)from).ToString(DateTimeFormat);
-        //    }
-
-        //    public override object StringToField(string from)
-        //    {
-        //        try
-        //        {
-        //            return DateTime.ParseExact(from, DateTimeFormat, System.Globalization.CultureInfo.CurrentCulture);
-        //        }
-        //        catch
-        //        {
-        //            return null;
-        //        }
-        //    }
-        //}
     }
 }
