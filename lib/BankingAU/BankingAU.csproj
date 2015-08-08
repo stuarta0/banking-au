@@ -75,6 +75,8 @@
     </Compile>
     <Compile Include="Westpac\QuickSuper\ContributionFile.cs" />
     <Compile Include="Westpac\QuickSuper\ContributionRecord.cs" />
+    <Compile Include="Westpac\QuickSuper\NameSuffix.cs" />
+    <Compile Include="Westpac\QuickSuper\Salutation.cs" />
     <Compile Include="Westpac\QuickSuper\Validator.cs" />
   </ItemGroup>
   <ItemGroup>

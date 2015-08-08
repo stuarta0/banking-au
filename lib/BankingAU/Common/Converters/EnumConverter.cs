@@ -27,6 +27,9 @@ namespace Banking.AU.Common.Converters
 
         public override string FieldToString(object from)
         {
+            if (from == null)
+                return string.Empty;
+
             if (_lookup.ContainsKey(from))
                 return _lookup[from];
             return base.FieldToString(from);
@@ -34,6 +37,9 @@ namespace Banking.AU.Common.Converters
 
         public override object StringToField(string from)
         {
+            if (String.IsNullOrEmpty(from))
+                return null;
+
             foreach (var pair in _lookup)
                 if (pair.Value == from)
                     return pair.Key;

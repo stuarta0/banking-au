@@ -1,4 +1,5 @@
-﻿using FileHelpers;
+﻿using Banking.AU.Common.Converters;
+using FileHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,68 +7,70 @@ using System.Text;
 namespace Banking.AU.Westpac.QuickSuper
 {
     [DelimitedRecord(",")]
-    [IgnoreFirst(1)]
+    [IgnoreFirst]
     public class ContributionRecord
     {
         /// <summary>
         /// Optional.  
         /// </summary>
-        public string YourFileReference { get; set; }
+        public string YourFileReference;
 
         /// <summary>
         /// Optional.  
         /// </summary>
-        public DateTime? YourFileDate { get; set; }
+        public DateTime? YourFileDate;
         
         /// <summary>
         /// Mandatory.  Restricted formats (section 2.1.1).
         /// </summary>
-        public DateTime ContributionPeriodStartDate { get; set; }
+        public DateTime ContributionPeriodStartDate;
         
         /// <summary>
         /// Mandatory.  Restricted formats (section 2.1.1).
         /// </summary>
-        public DateTime ContributionPeriodEndDate { get; set; }
+        public DateTime ContributionPeriodEndDate;
 
         /// <summary>
         /// Conditional.  
         /// </summary>
-        public string EmployerID { get; set; }
+        public string EmployerID;
 
         /// <summary>
         /// Optional.  
         /// </summary>
-        public string PayrollID { get; set; }
+        public string PayrollID;
 
         /// <summary>
         /// Optional.  Salutation.  Restricted values (section 2.3).
         /// </summary>
-        public string NameTitle { get; set; }
+        [FieldConverter(typeof(EnumConverter), typeof(Salutation))]
+        public Salutation? NameTitle;
 
         /// <summary>
         /// Mandatory.  
         /// </summary>
-        public string FamilyName { get; set; }
+        public string FamilyName;
 
         /// <summary>
         /// Mandatory.  
         /// </summary>
-        public string GivenName { get; set; }
+        public string GivenName;
 
         /// <summary>
         /// Optional.  
         /// </summary>
-        public string OtherGivenName { get; set; }
+        public string OtherGivenName;
 
         /// <summary>
         /// Optional.  Restricted values (section 2.4).
         /// </summary>
-        public string NameSuffix { get; set; }
+        [FieldConverter(typeof(EnumConverter), typeof(NameSuffix))]
+        public NameSuffix? NameSuffix;
 
         /// <summary>
         /// Mandatory.
         /// </summary>
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth;
 
         /// <summary>
         /// Optional.  Restricted values:
@@ -76,136 +79,136 @@ namespace Banking.AU.Westpac.QuickSuper
         /// I = Intersex/Indeterminate
         /// N = Not stated/Inadequeatly described
         /// </summary>
-        public string Gender { get; set; }
+        public string Gender;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string TaxFileNumber { get; set; }
+        public string TaxFileNumber;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string MobileNumber { get; set; }
+        public string MobileNumber;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string EmailAddress { get; set; }
+        public string EmailAddress;
 
         /// <summary>
         /// Conditional.
         /// </summary>
-        public string AddressLine1 { get; set; }
+        public string AddressLine1;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string AddressLine2 { get; set; }
+        public string AddressLine2;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string AddressLine3 { get; set; }
+        public string AddressLine3;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string AddressLine4 { get; set; }
+        public string AddressLine4;
 
         /// <summary>
         /// Conditional.
         /// </summary>
-        public string Suburb { get; set; }
+        public string Suburb;
 
         /// <summary>
         /// Conditional.  Restricted values: AAT, ACT, NSW, NT, QLD, SA, TAS, VIC, WA.
         /// </summary>
-        public string State { get; set; }
+        public string State;
 
         /// <summary>
         /// Conditional.
         /// </summary>
-        public string PostCode { get; set; }
+        public string PostCode;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string Country { get; set; }
+        public string Country;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public DateTime? EmploymentStartDate { get; set; }
+        public DateTime? EmploymentStartDate;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public DateTime? EmploymentEndDate { get; set; }
+        public DateTime? EmploymentEndDate;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string EmploymentEndReason { get; set; }
+        public string EmploymentEndReason;
 
         /// <summary>
         /// Mandatory.
         /// </summary>
-        public string FundID { get; set; }
+        public string FundID;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string FundName { get; set; }
+        public string FundName;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string FundEmployerID { get; set; }
+        public string FundEmployerID;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string MemberID { get; set; }
+        public string MemberID;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public decimal? EmployerSuperGuaranteeAmount { get; set; }
+        public decimal? EmployerSuperGuaranteeAmount;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public decimal? EmployerAdditionalAmount { get; set; }
+        public decimal? EmployerAdditionalAmount;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public decimal? MemberSalarySacrificeAmount { get; set; }
+        public decimal? MemberSalarySacrificeAmount;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public decimal? MemberAdditionalAmount { get; set; }
+        public decimal? MemberAdditionalAmount;
 
         /// <summary>
         /// Optional.  Only accepted value is "SPOUSE".
         /// </summary>
-        public string OtherContributorType { get; set; }
+        public string OtherContributorType;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string OtherContributorName { get; set; }
+        public string OtherContributorName;
 
         /// <summary>
         /// Optional.
         /// </summary>
-        public string YourContributionReference { get; set; }
+        public string YourContributionReference;
     }
 }
