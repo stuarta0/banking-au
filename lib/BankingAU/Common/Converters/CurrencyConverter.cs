@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Banking.AU.ABA.Converters
+namespace Banking.AU.Common.Converters
 {
     /// <summary>
     /// Provides conversion from dollars to cents.

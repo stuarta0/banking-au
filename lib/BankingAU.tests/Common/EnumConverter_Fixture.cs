@@ -1,11 +1,11 @@
-﻿using Banking.AU.ABA.Converters;
+﻿using Banking.AU.Common.Converters;
 using Banking.AU.ABA.Records;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Banking.AU.tests.ABA
+namespace Banking.AU.tests.Common
 {
     [TestFixture]
     public class EnumConverter_Fixture

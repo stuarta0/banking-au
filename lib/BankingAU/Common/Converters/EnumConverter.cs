@@ -4,8 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Banking.AU.ABA.Converters
+namespace Banking.AU.Common.Converters
 {
+    /// <summary>
+    /// Uses FileRepresentation attribute on enum values to encode/decode.  If not present
+    /// it uses the enum value.ToString().
+    /// </summary>
     public class EnumConverter : ConverterBase
     {
         private Dictionary<object, string> _lookup;
