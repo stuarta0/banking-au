@@ -105,7 +105,9 @@ namespace Banking.AU.tests.ABA
             data.AppendLine("7999-999            000012345600001234560000000000                        000001                                        ");
             var io = new ABAFileWriter();
             var stream = new MemoryStream();
-            new StreamWriter(stream) { AutoFlush = true }.Write(data.ToString());
+            var writer = new StreamWriter(stream) { AutoFlush = true };
+            writer.Write(data.ToString());
+            stream.Position = 0;
             var reader = new StreamReader(stream);
 
 			// Act

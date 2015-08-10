@@ -15,26 +15,8 @@ namespace Banking.AU.ABA
 
         public ABAFile Read(string filename)
         {
-            var engine = new MultiRecordEngine(typeof(DescriptiveRecord),
-                                               typeof(DetailRecord),
-                                               typeof(FileTotalRecord));
-            engine.RecordSelector = new RecordTypeSelector(ABAFormatSelector);
-            var records = engine.ReadFile(filename); // succeeds
-
-            var file = new ABAFile();
-            foreach (var r in records)
-            {
-                if (r is DescriptiveRecord)
-                    file.DescriptiveRecord = (DescriptiveRecord)r;
-                else if (r is DetailRecord)
-                    file.DetailRecords.Add((DetailRecord)r);
-                else if (r is FileTotalRecord)
-                    file.FileTotalRecord = (FileTotalRecord)r;
-            }
-            return file;
-
-            //using (var stream = File.OpenText(filename))
-            //    return Read(stream);
+            using (var stream = File.OpenText(filename))
+                return Read(stream);
         }
 
         public ABAFile Read(TextReader stream)
@@ -43,7 +25,7 @@ namespace Banking.AU.ABA
                                                typeof(DetailRecord),
                                                typeof(FileTotalRecord));
             engine.RecordSelector = new RecordTypeSelector(ABAFormatSelector);
-            var records = engine.ReadStream(stream); // fails, patch FileHelpers
+            var records = engine.ReadStream(stream);
 
             var file = new ABAFile();
             foreach (var r in records)
