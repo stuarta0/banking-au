@@ -85,7 +85,7 @@ namespace Banking.AU.tests.Westpac
                 FundEmployerID = "ABC123",
                 FundID = "ABC123",
                 FundName = "Super Fund",
-                Gender = "M",
+                Gender = ContributionRecord.Sex.Male,
                 GivenName = "John",
                 MemberAdditionalAmount = 300,
                 MemberID = "ABC123",

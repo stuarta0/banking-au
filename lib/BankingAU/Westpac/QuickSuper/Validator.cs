@@ -15,7 +15,6 @@ namespace Banking.AU.Westpac.QuickSuper
             var reference       = new Regex(@"^[A-Za-z0-9_\-\.]*$");
             var alphanumeric    = new Regex(@"^[A-Za-z0-9]*$");
             var name            = new Regex(@"^[A-Za-z'\-\s\.\(\)]*$");
-            var gender          = new Regex(@"^[MFIN]$");
             var phone           = new Regex(@"^[0-9\-\s+\(\)]*$");
             var email           = new Regex(@"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$");
             var state           = new Regex(@"^(AAT|ACT|NSW|NT|QLD|SA|TAS|VIC|WA)$");
@@ -61,7 +60,7 @@ namespace Banking.AU.Westpac.QuickSuper
                         return String.Concat(c.Name, " must be before today and greater than 100 years ago.");
                     return null;
                 }},
-                new Checker("Gender") { Rule = gender },
+                new Checker("Gender"),
                 new Checker("TaxFileNumber"),
                 new Checker("PhoneNumber") { Rule = phone, MaxLength = 15 },
                 new Checker("MobileNumber") { Rule = phone, MaxLength = 15 },

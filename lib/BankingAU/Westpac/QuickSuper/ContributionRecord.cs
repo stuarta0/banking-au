@@ -11,7 +11,7 @@ namespace Banking.AU.Westpac.QuickSuper
     [IgnoreFirst]
     public class ContributionRecord
     {
-        public enum Gender
+        public enum Sex
         {
             /// <summary>
             /// Not stated or inadequately described.
@@ -121,8 +121,8 @@ namespace Banking.AU.Westpac.QuickSuper
         /// <summary>
         /// Optional.
         /// </summary>
-        [FieldConverter(typeof(EnumConverter), typeof(Gender))]
-        public Gender Gender;
+        [FieldConverter(typeof(EnumConverter), typeof(Sex))]
+        public Sex Gender;
 
         /// <summary>
         /// Optional. However you must provide the employee’s TFN if it has been provided to you.
