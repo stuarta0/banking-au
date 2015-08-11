@@ -11,6 +11,9 @@ namespace Banking.AU.ABA
 
         public IList<DetailRecord> DetailRecords { get; set; }
 
+        /// <summary>
+        ///Use <see cref="ABAFile.GenerateTotalRecord"/> to automatically create the required data.
+        /// </summary>
         public FileTotalRecord FileTotalRecord { get; set; }
 
         public ABAFile()

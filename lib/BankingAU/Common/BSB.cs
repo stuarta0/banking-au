@@ -22,15 +22,22 @@ namespace Banking.AU.Common
         /// <summary>
         /// Encodes a BSB number in the format "000-000"
         /// </summary>
-        /// <param name="bank"></param>
-        /// <param name="state"></param>
-        /// <param name="branch"></param>
+        /// <param name="bank">Two digit bank code.</param>
+        /// <param name="state">State of branch.</param>
+        /// <param name="branch">Three digit branch code.</param>
         /// <returns></returns>
         public static string Encode(int bank, State state, int branch)
         {
             return Encode(bank, (int)state, branch);
         }
 
+        /// <summary>
+        /// Encodes a BSB number in the format "000-000"
+        /// </summary>
+        /// <param name="bank">Two digit bank code.</param>
+        /// <param name="state">Single digit state code.</param>
+        /// <param name="branch">Three digit branch code.</param>
+        /// <returns></returns>
         public static string Encode(int bank, int state, int branch)
         {
             if (bank < 0 || bank > 99)

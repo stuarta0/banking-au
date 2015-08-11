@@ -9,26 +9,40 @@ namespace Banking.AU.ABA.Records
     [FixedLengthRecord]
     public class FileTotalRecord
     {
+        /// <summary>
+        /// Must be 7.
+        /// </summary>
         [FieldFixedLength(1)]
         public int RecordType;
 
+        /// <summary>
+        /// Must be 999-999.
+        /// </summary>
         [FieldFixedLength(7)]
-        // TODO: format 000-000
         public string BSB;
 
         [FieldFixedLength(12)]
         public string Blank1;
 
+        /// <summary>
+        /// Must equal the difference between File Credit & File Debit Total Amounts.
+        /// </summary>
         [FieldFixedLength(10)]
         [FieldAlign(AlignMode.Right, '0')]
         [FieldConverter(typeof(CurrencyConverter))]
         public decimal NetTotalAmount;
 
+        /// <summary>
+        /// Must equal the accumulated total of credit Detail Record amounts. 
+        /// </summary>
         [FieldFixedLength(10)]
         [FieldAlign(AlignMode.Right, '0')]
         [FieldConverter(typeof(CurrencyConverter))]
         public decimal CreditTotalAmount;
 
+        /// <summary>
+        /// Must equal the accumulated total of debit Detail Record amounts. 
+        /// </summary>
         [FieldFixedLength(10)]
         [FieldAlign(AlignMode.Right, '0')]
         [FieldConverter(typeof(CurrencyConverter))]
@@ -37,6 +51,9 @@ namespace Banking.AU.ABA.Records
         [FieldFixedLength(24)]
         public string Blank2;
 
+        /// <summary>
+        /// Must equal accumulated number of Record Type 1 items on the file.
+        /// </summary>
         [FieldFixedLength(6)]
         [FieldAlign(AlignMode.Right, '0')]
         public int CountOfType1;
@@ -47,6 +64,7 @@ namespace Banking.AU.ABA.Records
         public FileTotalRecord()
         {
             RecordType = 7;
+            BSB = "999-999";
         }
     }
 }
