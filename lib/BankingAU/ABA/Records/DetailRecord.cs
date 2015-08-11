@@ -13,11 +13,11 @@ namespace Banking.AU.ABA.Records
         public int RecordType;
 
         /// <summary>
-        /// Use <see cref="Banking.AU.Common.BSB"/> for correct format. 
+        /// Use <see cref="Banking.AU.Common.Bsb"/> for correct format. 
         /// For credits to Employee Benefits Card accounts, field must always contain BSB 032-898.
         /// </summary>
         [FieldFixedLength(7)]
-        public string BSB;
+        public string Bsb;
 
         /// <summary>
         /// Account number to be credited/debited. Numeric, hyphens and blanks only are valid. Must not contain all blanks (unless a credit card transaction) or zeros. Leading zeros which are part of a valid account number must be shown, e.g. 00-1234. 
@@ -72,11 +72,11 @@ namespace Banking.AU.ABA.Records
 
         /// <summary>
         /// BSB of User to enable retracing of the entry to its source if necessary.
-        /// Use <see cref="Banking.AU.Common.BSB"/> for correct format. 
+        /// Use <see cref="Banking.AU.Common.Bsb"/> for correct format. 
         /// This is the BSB of your bank account.
         /// </summary>
         [FieldFixedLength(7)]
-        public string TraceRecordBSB;
+        public string TraceRecordBsb;
 
         /// <summary>
         /// Account number of User to enable retracing of the entry to its source if necessary.
@@ -106,16 +106,6 @@ namespace Banking.AU.ABA.Records
             RecordType = 1;
             Indicator = Records.Indicator.None;
             TransactionCode = Records.TransactionCode.CreditItem;
-        }
-
-        public void SetBSB(int bank, Common.BSB.State state, int branch)
-        {
-            BSB = Common.BSB.Encode(bank, state, branch);
-        }
-
-        private void SetTraceBSB(int bank, Common.BSB.State state, int branch)
-        {
-            TraceRecordBSB = Common.BSB.Encode(bank, state, branch);
         }
     }
 }

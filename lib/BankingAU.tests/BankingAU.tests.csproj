@@ -47,13 +47,13 @@
     <Compile Include="Common\EnumConverter_Fixture.cs" />
     <Compile Include="Common\CurrencyConverter_Fixture.cs" />
     <Compile Include="ATO\SuperStreamFile_Fixture.cs" />
-    <Compile Include="Common\BSB_Fixture.cs" />
+    <Compile Include="Common\Bsb_Fixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Westpac\QuickSuperFile_Fixture.cs" />
     <Compile Include="Westpac\QuickSuperValidator_Fixture.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABA\ABAFileWriter_Fixture.cs" />
+    <Compile Include="ABA\AbaFileIO_Fixture.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

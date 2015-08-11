@@ -1,4 +1,5 @@
 ﻿using Banking.AU.ABA.Records;
+using Banking.AU.Common;
 using FileHelpers;
 using System;
 using System.Collections.Generic;
@@ -7,27 +8,28 @@ using System.Text;
 
 namespace Banking.AU.ABA
 {
-    public class ABAFileWriter
+    public class AbaFileIO : IFileIO<AbaFile>
     {
-        public ABAFileWriter()
+        private MultiRecordEngine _engine;
+        public AbaFileIO()
         {
+            _engine = new MultiRecordEngine(typeof(DescriptiveRecord),
+                                               typeof(DetailRecord),
+                                               typeof(FileTotalRecord));
+            _engine.RecordSelector = new RecordTypeSelector(ABAFormatSelector);
         }
 
-        public ABAFile Read(string filename)
+        public AbaFile Read(string filename)
         {
             using (var stream = File.OpenText(filename))
                 return Read(stream);
         }
 
-        public ABAFile Read(TextReader stream)
+        public AbaFile Read(TextReader stream)
         {
-            var engine = new MultiRecordEngine(typeof(DescriptiveRecord),
-                                               typeof(DetailRecord),
-                                               typeof(FileTotalRecord));
-            engine.RecordSelector = new RecordTypeSelector(ABAFormatSelector);
-            var records = engine.ReadStream(stream);
+            var records = _engine.ReadStream(stream);
 
-            var file = new ABAFile();
+            var file = new AbaFile();
             foreach (var r in records)
             {
                 if (r is DescriptiveRecord)
@@ -40,25 +42,20 @@ namespace Banking.AU.ABA
             return file;
         }
 
-        public void Write(string filename, ABAFile file)
+        public void Write(string filename, AbaFile file)
         {
             using (var stream = File.CreateText(filename))
                 Write(stream, file);
         }
 
-        public void Write(TextWriter stream, ABAFile file)
+        public void Write(TextWriter stream, AbaFile file)
         {
-            var engine = new MultiRecordEngine(typeof(DescriptiveRecord),
-                                               typeof(DetailRecord),
-                                               typeof(FileTotalRecord));
-            engine.RecordSelector = new RecordTypeSelector(ABAFormatSelector);
-            
             var data = new List<object>();
             data.Add(file.DescriptiveRecord);
             foreach (var d in file.DetailRecords)
                 data.Add(d);
             data.Add(file.FileTotalRecord);
-            engine.WriteStream(stream, data);
+            _engine.WriteStream(stream, data);
         }
 
         private Type ABAFormatSelector(MultiRecordEngine engine, string recordLine)

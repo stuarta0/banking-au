@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Banking.AU.Common
 {
-    public static class BSB
+    public static class Bsb
     {
         /// <summary>
         /// Value represents Australian BSB state code.

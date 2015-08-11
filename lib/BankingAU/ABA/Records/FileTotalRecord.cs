@@ -19,7 +19,7 @@ namespace Banking.AU.ABA.Records
         /// Must be 999-999.
         /// </summary>
         [FieldFixedLength(7)]
-        public string BSB;
+        public string Bsb;
 
         [FieldFixedLength(12)]
         public string Blank1;
@@ -64,7 +64,7 @@ namespace Banking.AU.ABA.Records
         public FileTotalRecord()
         {
             RecordType = 7;
-            BSB = "999-999";
+            Bsb = "999-999";
         }
     }
 }

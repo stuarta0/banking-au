@@ -35,7 +35,7 @@ namespace Banking.AU.ABA.Records
         /// Must be User Preferred Specification as advised by User's FI. All coded character set valid. Must not be all blanks.
         /// </summary>
         [FieldFixedLength(26)]
-        public string UserSpecification;
+        public string UserPreferredName;
 
         /// <summary>
         /// Must be User Identification Number which is allocated by APCA.

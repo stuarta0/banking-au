@@ -7,7 +7,7 @@ using System.Text;
 namespace Banking.AU.tests.Common
 {
     [TestFixture]
-    public class BSB_Fixture
+    public class Bsb_Fixture
     {
         [Test]
         public void Encode_bsb()
@@ -15,7 +15,7 @@ namespace Banking.AU.tests.Common
             // Arrange
 
             // Act
-            var bsb = BSB.Encode(73, BSB.State.TAS, 123);
+            var bsb = Bsb.Encode(73, Bsb.State.TAS, 123);
 
             // Assert
             Assert.AreEqual("737-123", bsb);
@@ -27,7 +27,7 @@ namespace Banking.AU.tests.Common
             // Arrange
 
             // Act
-            var bsb = BSB.Encode(0, 0, 0);
+            var bsb = Bsb.Encode(0, 0, 0);
 
             // Assert
             Assert.AreEqual("000-000", bsb);

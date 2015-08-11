@@ -7,6 +7,10 @@ using System.Text;
 
 namespace Banking.AU.Westpac.QuickSuper
 {
+    /// <summary>
+    /// Represents a super contribution for an employee.
+    /// Mandatory fields are: ContributionPeriodStartDate, ContributionPeriodEndDate, FamilyName, GivenName, DateOfBirth, FundID.
+    /// </summary>
     [DelimitedRecord(",")]
     [IgnoreFirst]
     public class ContributionRecord
@@ -108,7 +112,7 @@ namespace Banking.AU.Westpac.QuickSuper
         public string OtherGivenName;
 
         /// <summary>
-        /// Optional.  Restricted values (section 2.4).
+        /// Optional.
         /// </summary>
         [FieldConverter(typeof(EnumConverter), typeof(NameSuffix))]
         public NameSuffix? NameSuffix;
@@ -122,7 +126,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// Optional.
         /// </summary>
         [FieldConverter(typeof(EnumConverter), typeof(Sex))]
-        public Sex Gender;
+        public Sex? Gender;
 
         /// <summary>
         /// Optional. However you must provide the employee’s TFN if it has been provided to you.

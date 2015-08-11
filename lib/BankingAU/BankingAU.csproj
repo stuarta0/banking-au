@@ -40,10 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABA\ABAFile.cs" />
+    <Compile Include="ABA\AbaFile.cs" />
     <Compile Include="Common\Converters\CurrencyConverter.cs" />
     <Compile Include="Common\Converters\EnumConverter.cs" />
-    <Compile Include="Common\BSB.cs" />
+    <Compile Include="Common\Bsb.cs" />
     <Compile Include="ABA\Records\FileTotalRecord.cs" />
     <Compile Include="ABA\Records\DetailRecord.cs" />
     <Compile Include="ABA\Records\DescriptiveRecord.cs" />
@@ -63,7 +63,8 @@
     <Compile Include="ATO\SuperStream\Sender.cs" />
     <Compile Include="ATO\SuperStream\SuperFundMember.cs" />
     <Compile Include="Common\Attributes\FileRepresentationAttribute.cs" />
-    <Compile Include="ABA\ABAFileWriter.cs" />
+    <Compile Include="ABA\AbaFileIO.cs" />
+    <Compile Include="Common\IFileIO.cs" />
     <Compile Include="Common\Validation\IValidationError.cs" />
     <Compile Include="Common\IValidator.cs" />
     <Compile Include="Common\Validation\ValidationError.cs" />
@@ -74,6 +75,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Westpac\QuickSuper\ContributionFile.cs" />
+    <Compile Include="Westpac\QuickSuper\ContributionFileIO.cs" />
     <Compile Include="Westpac\QuickSuper\ContributionRecord.cs" />
     <Compile Include="Westpac\QuickSuper\NameSuffix.cs" />
     <Compile Include="Westpac\QuickSuper\Salutation.cs" />

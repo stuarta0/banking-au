@@ -15,18 +15,18 @@ namespace Banking.AU.tests.Westpac
         public void Write_stream()
         {
             // Arrange
-            var file = new ContributionFile();
+            var io = new ContributionFileIO();
             var stream = new MemoryStream();
             var writer = new StreamWriter(stream) { AutoFlush = true };
-            var records = new List<ContributionRecord>()
+            var file = new ContributionFile(new[]
             {
                 QuickSuperValidator_Fixture.CreateValidRecord(),
                 QuickSuperValidator_Fixture.CreateValidRecord(),
                 QuickSuperValidator_Fixture.CreateValidRecord()
-            };
+            });
 
             // Act
-            file.Write(writer, records);
+            io.Write(writer, file);
 
             // Assert
             Assert.IsTrue(writer.BaseStream.Length > 0);
@@ -37,17 +37,17 @@ namespace Banking.AU.tests.Westpac
         public void Write_file()
         {
             // Arrange
-            var file = new ContributionFile();
+            var io = new ContributionFileIO();
             var path = Path.GetTempFileName();
-            var records = new List<ContributionRecord>()
+            var file = new ContributionFile(new[]
             {
                 QuickSuperValidator_Fixture.CreateValidRecord(),
                 QuickSuperValidator_Fixture.CreateValidRecord(),
                 QuickSuperValidator_Fixture.CreateValidRecord()
-            };
+            });
 
             // Act
-            file.Write(path, records);
+            io.Write(path, file);
 
             // Assert
             Assert.IsTrue(File.Exists(path));
@@ -60,7 +60,7 @@ namespace Banking.AU.tests.Westpac
         public void Read_stream()
         {
             // Arrange
-            var file = new ContributionFile();
+            var io = new ContributionFileIO();
             var stream = new MemoryStream();
             new StreamWriter(stream) { AutoFlush = true }.Write(
 @"YourFileReference,YourFileDate,ContributionPeriodStartDate,ContributionPeriodEndDate,EmployerID,PayrollID,NameTitle,FamilyName,GivenName,OtherGivenName,NameSuffix,DateOfBirth,Gender,TaxFileNumber,PhoneNumber,MobileNumber,EmailAddress,AddressLine1,AddressLine2,AddressLine3,AddressLine4,Suburb,State,PostCode,Country,EmploymentStartDate,EmploymentEndDate,EmploymentEndReason,FundID,FundName,FundEmployerID,MemberID,EmployerSuperGuaranteeAmount,EmployerAdditionalAmount,MemberSalarySacrificeAmount,MemberAdditionalAmount,OtherContributorType,OtherContributorName,YourContributionReference
@@ -69,10 +69,10 @@ namespace Banking.AU.tests.Westpac
             var reader = new StreamReader(stream);
             
             // Act
-            var records = file.Read(reader);
+            var file = io.Read(reader);
 
             // Assert
-            Assert.AreEqual(1, records.Count);
+            Assert.AreEqual(1, file.Records.Count);
             stream.Dispose();
         }
 
@@ -80,17 +80,17 @@ namespace Banking.AU.tests.Westpac
         public void Read_file()
         {
             // Arrange
-            var file = new ContributionFile();
+            var io = new ContributionFileIO();
             var path = Path.GetTempFileName();
             using (var stream = File.CreateText(path))
                 stream.Write(@"YourFileReference,YourFileDate,ContributionPeriodStartDate,ContributionPeriodEndDate,EmployerID,PayrollID,NameTitle,FamilyName,GivenName,OtherGivenName,NameSuffix,DateOfBirth,Gender,TaxFileNumber,PhoneNumber,MobileNumber,EmailAddress,AddressLine1,AddressLine2,AddressLine3,AddressLine4,Suburb,State,PostCode,Country,EmploymentStartDate,EmploymentEndDate,EmploymentEndReason,FundID,FundName,FundEmployerID,MemberID,EmployerSuperGuaranteeAmount,EmployerAdditionalAmount,MemberSalarySacrificeAmount,MemberAdditionalAmount,OtherContributorType,OtherContributorName,YourContributionReference
 ,,08-Jul-15,06-Sep-15,,,,Citizen,John,,,07-Aug-85,,,,,,,,,,,,,,,,,ABC123,,,,,,,,,,");
                         
             // Act
-            var records = file.Read(path);
+            var file = io.Read(path);
 
             // Assert
-            Assert.AreEqual(1, records.Count);
+            Assert.AreEqual(1, file.Records.Count);
         }
     }
 }

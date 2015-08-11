@@ -5,26 +5,29 @@ using System.Text;
 
 namespace Banking.AU.ABA
 {
-    public class ABAFile
+    public class AbaFile
     {
         public DescriptiveRecord DescriptiveRecord { get; set; }
 
         public IList<DetailRecord> DetailRecords { get; set; }
 
         /// <summary>
-        ///Use <see cref="ABAFile.GenerateTotalRecord"/> to automatically create the required data.
+        ///Use <see cref="AbaFile.GenerateTotalRecord"/> to automatically create the required data.
         /// </summary>
         public FileTotalRecord FileTotalRecord { get; set; }
 
-        public ABAFile()
+        public AbaFile()
         {
             DescriptiveRecord = new DescriptiveRecord();
             DetailRecords = new List<DetailRecord>();
             FileTotalRecord = new FileTotalRecord();
         }
 
-        public void GenerateTotalRecord()
+        public FileTotalRecord GenerateTotalRecord()
         {
+            if (DetailRecords == null)
+                return null;
+
             decimal net = 0, credit = 0, debit = 0;
             foreach (var detail in DetailRecords)
             {
@@ -35,9 +38,9 @@ namespace Banking.AU.ABA
                     debit += detail.Amount;
             }
 
-            FileTotalRecord = new FileTotalRecord()
+            return new FileTotalRecord()
             {
-                BSB = "999-999",
+                Bsb = "999-999",
                 NetTotalAmount = net,
                 CreditTotalAmount = credit,
                 DebitTotalAmount = debit,
