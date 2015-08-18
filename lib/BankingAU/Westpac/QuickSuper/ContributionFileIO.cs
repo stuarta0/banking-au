@@ -14,7 +14,7 @@ namespace Banking.AU.Westpac.QuickSuper
         static ContributionFileIO()
         {
             var props = new List<string>();
-            foreach (var p in typeof(ContributionRecord).GetProperties())
+            foreach (var p in typeof(ContributionRecord).GetFields())
                 props.Add(p.Name);
             HEADER = String.Join(",", props.ToArray());
         }

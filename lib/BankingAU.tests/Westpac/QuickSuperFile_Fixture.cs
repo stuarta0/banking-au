@@ -11,6 +11,23 @@ namespace Banking.AU.tests.Westpac
     [TestFixture]
     public class QuickSuperFile_Fixture
     {
+        /// <summary>
+        /// Returns a record that has the minimum amount of information to pass validation.
+        /// </summary>
+        /// <returns></returns>
+        private ContributionRecord CreateValidRecord()
+        {
+            return new ContributionRecord()
+            {
+                ContributionPeriodStartDate = new DateTime(2015, 1, 1),
+                ContributionPeriodEndDate = new DateTime(2015, 7, 1),
+                FamilyName = "Citizen",
+                GivenName = "John",
+                DateOfBirth = new DateTime(1990, 1, 1),
+                FundID = "ABC123"
+            };
+        }
+
         [Test]
         public void Write_stream()
         {
@@ -20,9 +37,9 @@ namespace Banking.AU.tests.Westpac
             var writer = new StreamWriter(stream) { AutoFlush = true };
             var file = new ContributionFile(new[]
             {
-                QuickSuperValidator_Fixture.CreateValidRecord(),
-                QuickSuperValidator_Fixture.CreateValidRecord(),
-                QuickSuperValidator_Fixture.CreateValidRecord()
+                CreateValidRecord(),
+                CreateValidRecord(),
+                CreateValidRecord()
             });
 
             // Act
@@ -30,7 +47,16 @@ namespace Banking.AU.tests.Westpac
 
             // Assert
             Assert.IsTrue(writer.BaseStream.Length > 0);
+            stream.Position = 0;
+            var data = new StreamReader(stream).ReadToEnd();
             stream.Dispose();
+
+            Assert.AreEqual(
+@"YourFileReference,YourFileDate,ContributionPeriodStartDate,ContributionPeriodEndDate,EmployerID,PayrollID,NameTitle,FamilyName,GivenName,OtherGivenName,NameSuffix,DateOfBirth,Gender,TaxFileNumber,PhoneNumber,MobileNumber,EmailAddress,AddressLine1,AddressLine2,AddressLine3,AddressLine4,Suburb,State,PostCode,Country,EmploymentStartDate,EmploymentEndDate,EmploymentEndReason,FundID,FundName,FundEmployerID,MemberID,EmployerSuperGuaranteeAmount,EmployerAdditionalAmount,MemberSalarySacrificeAmount,MemberAdditionalAmount,OtherContributorType,OtherContributorName,YourContributionReference
+,,01-Jan-15,01-Jul-15,,,,Citizen,John,,,01-Jan-90,,,,,,,,,,,,,,,,,ABC123,,,,,,,,,,
+,,01-Jan-15,01-Jul-15,,,,Citizen,John,,,01-Jan-90,,,,,,,,,,,,,,,,,ABC123,,,,,,,,,,
+,,01-Jan-15,01-Jul-15,,,,Citizen,John,,,01-Jan-90,,,,,,,,,,,,,,,,,ABC123,,,,,,,,,,
+", data);
         }
 
         [Test]
@@ -41,9 +67,9 @@ namespace Banking.AU.tests.Westpac
             var path = Path.GetTempFileName();
             var file = new ContributionFile(new[]
             {
-                QuickSuperValidator_Fixture.CreateValidRecord(),
-                QuickSuperValidator_Fixture.CreateValidRecord(),
-                QuickSuperValidator_Fixture.CreateValidRecord()
+                CreateValidRecord(),
+                CreateValidRecord(),
+                CreateValidRecord()
             });
 
             // Act
@@ -53,7 +79,15 @@ namespace Banking.AU.tests.Westpac
             Assert.IsTrue(File.Exists(path));
             var fi = new FileInfo(path);
             Assert.IsTrue(fi.Length > 0);
+            var data = File.ReadAllText(path);
             fi.Delete();
+
+            Assert.AreEqual(
+@"YourFileReference,YourFileDate,ContributionPeriodStartDate,ContributionPeriodEndDate,EmployerID,PayrollID,NameTitle,FamilyName,GivenName,OtherGivenName,NameSuffix,DateOfBirth,Gender,TaxFileNumber,PhoneNumber,MobileNumber,EmailAddress,AddressLine1,AddressLine2,AddressLine3,AddressLine4,Suburb,State,PostCode,Country,EmploymentStartDate,EmploymentEndDate,EmploymentEndReason,FundID,FundName,FundEmployerID,MemberID,EmployerSuperGuaranteeAmount,EmployerAdditionalAmount,MemberSalarySacrificeAmount,MemberAdditionalAmount,OtherContributorType,OtherContributorName,YourContributionReference
+,,01-Jan-15,01-Jul-15,,,,Citizen,John,,,01-Jan-90,,,,,,,,,,,,,,,,,ABC123,,,,,,,,,,
+,,01-Jan-15,01-Jul-15,,,,Citizen,John,,,01-Jan-90,,,,,,,,,,,,,,,,,ABC123,,,,,,,,,,
+,,01-Jan-15,01-Jul-15,,,,Citizen,John,,,01-Jan-90,,,,,,,,,,,,,,,,,ABC123,,,,,,,,,,
+", data);
         }
 
         [Test]
