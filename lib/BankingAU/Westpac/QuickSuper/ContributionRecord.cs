@@ -259,21 +259,25 @@ namespace Banking.AU.Westpac.QuickSuper
         /// <summary>
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringFormatConverter), typeof(decimal?), "F2")]
         public decimal? EmployerSuperGuaranteeAmount;
 
         /// <summary>
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringFormatConverter), typeof(decimal?), "F2")]
         public decimal? EmployerAdditionalAmount;
 
         /// <summary>
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringFormatConverter), typeof(decimal?), "F2")]
         public decimal? MemberSalarySacrificeAmount;
 
         /// <summary>
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringFormatConverter), typeof(decimal?), "F2")]
         public decimal? MemberAdditionalAmount;
 
         /// <summary>

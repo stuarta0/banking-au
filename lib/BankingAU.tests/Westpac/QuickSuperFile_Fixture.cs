@@ -126,5 +126,33 @@ namespace Banking.AU.tests.Westpac
             // Assert
             Assert.AreEqual(1, file.Records.Count);
         }
+
+        [Test]
+        public void Dollar_amounts_two_decimal_limit_write()
+        {
+            // Arrange
+            var io = new ContributionFileIO();
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream) { AutoFlush = true };
+            var file = new ContributionFile(new[] { CreateValidRecord() });
+            file[0].EmployerSuperGuaranteeAmount = 7890.1234m;
+            file[0].EmployerAdditionalAmount = 1234.5678m;
+            file[0].MemberSalarySacrificeAmount = 9012.3456m;
+            file[0].MemberAdditionalAmount = 3456.789m;
+
+            // Act
+            io.Write(writer, file);
+
+            // Assert
+            Assert.IsTrue(writer.BaseStream.Length > 0);
+            stream.Position = 0;
+            var data = new StreamReader(stream).ReadToEnd();
+            stream.Dispose();
+
+            Assert.AreEqual(
+@"YourFileReference,YourFileDate,ContributionPeriodStartDate,ContributionPeriodEndDate,EmployerID,PayrollID,NameTitle,FamilyName,GivenName,OtherGivenName,NameSuffix,DateOfBirth,Gender,TaxFileNumber,PhoneNumber,MobileNumber,EmailAddress,AddressLine1,AddressLine2,AddressLine3,AddressLine4,Suburb,State,PostCode,Country,EmploymentStartDate,EmploymentEndDate,EmploymentEndReason,FundID,FundName,FundEmployerID,MemberID,EmployerSuperGuaranteeAmount,EmployerAdditionalAmount,MemberSalarySacrificeAmount,MemberAdditionalAmount,OtherContributorType,OtherContributorName,YourContributionReference
+,,01-Jan-15,01-Jul-15,,,,Citizen,John,,,01-Jan-90,,,,,,,,,,,,,,,,,ABC123,,,,7890.12,1234.57,9012.35,3456.79,,,
+", data);
+        }
     }
 }
