@@ -154,5 +154,94 @@ namespace Banking.AU.tests.Westpac
 ,,01-Jan-15,01-Jul-15,,,,Citizen,John,,,01-Jan-90,,,,,,,,,,,,,,,,,ABC123,,,,7890.12,1234.57,9012.35,3456.79,,,
 ", data);
         }
+
+        [Test]
+        public void String_data_with_comma_write()
+        {
+            // Arrange
+            var io = new ContributionFileIO();
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream) { AutoFlush = true };
+            var file = new ContributionFile(new[] { CreateValidRecord() });
+            file[0].AddressLine1 = "Address, Line1";
+            file[0].AddressLine2 = "Address, Line2";
+            file[0].AddressLine3 = "Address, Line3";
+            file[0].AddressLine4 = "Address, Line4";
+            file[0].EmployerID = "Employer,ID";
+            file[0].EmploymentEndReason = "Employment,End,Reason";
+            file[0].FamilyName = "Family,Name";
+            file[0].FundEmployerID = "Fund,Employer,ID";
+            file[0].FundID = "Fund,ID";
+            file[0].FundName = "Fund,Name";
+            file[0].GivenName = "Given,Name";
+            file[0].MemberID = "Member,ID";
+            file[0].MobileNumber = "Mobile,Number";
+            file[0].OtherContributorName = "Other,Contributor,Name";
+            file[0].OtherGivenName = "Other,Given,Name";
+            file[0].PayrollID = "Payroll,ID";
+            file[0].PhoneNumber = "Phone,Number";
+            file[0].Suburb = "Suburb,";
+            file[0].YourContributionReference = "Your,Contribution,Reference";
+            file[0].YourFileReference = "Your,File,Reference";
+
+            // Act
+            io.Write(writer, file);
+
+            // Assert
+            Assert.IsTrue(writer.BaseStream.Length > 0);
+            stream.Position = 0;
+            var data = new StreamReader(stream).ReadToEnd();
+            stream.Dispose();
+
+            Assert.AreEqual(
+@"YourFileReference,YourFileDate,ContributionPeriodStartDate,ContributionPeriodEndDate,EmployerID,PayrollID,NameTitle,FamilyName,GivenName,OtherGivenName,NameSuffix,DateOfBirth,Gender,TaxFileNumber,PhoneNumber,MobileNumber,EmailAddress,AddressLine1,AddressLine2,AddressLine3,AddressLine4,Suburb,State,PostCode,Country,EmploymentStartDate,EmploymentEndDate,EmploymentEndReason,FundID,FundName,FundEmployerID,MemberID,EmployerSuperGuaranteeAmount,EmployerAdditionalAmount,MemberSalarySacrificeAmount,MemberAdditionalAmount,OtherContributorType,OtherContributorName,YourContributionReference
+YourFileReference,,01-Jan-15,01-Jul-15,EmployerID,PayrollID,,FamilyName,GivenName,OtherGivenName,,01-Jan-90,,,PhoneNumber,MobileNumber,,Address Line1,Address Line2,Address Line3,Address Line4,Suburb,,,,,,EmploymentEndReason,FundID,FundName,FundEmployerID,MemberID,,,,,,OtherContributorName,YourContributionReference
+", data);
+        }
+
+        [Test]
+        public void String_data_with_newline_write()
+        {
+            // Arrange
+            var io = new ContributionFileIO();
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream) { AutoFlush = true };
+            var file = new ContributionFile(new[] { CreateValidRecord() });
+            file[0].AddressLine1 = "Address\n Line1";
+            file[0].AddressLine2 = String.Format("Address{0} Line2", Environment.NewLine);
+            file[0].AddressLine3 = @"Address, 
+Line3";
+            file[0].AddressLine4 = "Address\n Line4";
+            file[0].EmployerID = "Employer\nID";
+            file[0].EmploymentEndReason = "Employment\nEnd\nReason";
+            file[0].FamilyName = "Family\nName";
+            file[0].FundEmployerID = "Fund\nEmployer\nID";
+            file[0].FundID = "Fund\nID";
+            file[0].FundName = "Fund\nName";
+            file[0].GivenName = "Given\nName";
+            file[0].MemberID = "Member\nID";
+            file[0].MobileNumber = "Mobile\nNumber";
+            file[0].OtherContributorName = "Other\nContributor\nName";
+            file[0].OtherGivenName = "Other\nGiven\nName";
+            file[0].PayrollID = "Payroll\nID";
+            file[0].PhoneNumber = "Phone\nNumber";
+            file[0].Suburb = "Suburb\n";
+            file[0].YourContributionReference = "Your\nContribution\nReference";
+            file[0].YourFileReference = "Your\nFile\nReference";
+
+            // Act
+            io.Write(writer, file);
+
+            // Assert
+            Assert.IsTrue(writer.BaseStream.Length > 0);
+            stream.Position = 0;
+            var data = new StreamReader(stream).ReadToEnd();
+            stream.Dispose();
+
+            Assert.AreEqual(
+@"YourFileReference,YourFileDate,ContributionPeriodStartDate,ContributionPeriodEndDate,EmployerID,PayrollID,NameTitle,FamilyName,GivenName,OtherGivenName,NameSuffix,DateOfBirth,Gender,TaxFileNumber,PhoneNumber,MobileNumber,EmailAddress,AddressLine1,AddressLine2,AddressLine3,AddressLine4,Suburb,State,PostCode,Country,EmploymentStartDate,EmploymentEndDate,EmploymentEndReason,FundID,FundName,FundEmployerID,MemberID,EmployerSuperGuaranteeAmount,EmployerAdditionalAmount,MemberSalarySacrificeAmount,MemberAdditionalAmount,OtherContributorType,OtherContributorName,YourContributionReference
+YourFileReference,,01-Jan-15,01-Jul-15,EmployerID,PayrollID,,FamilyName,GivenName,OtherGivenName,,01-Jan-90,,,PhoneNumber,MobileNumber,,Address Line1,Address Line2,Address Line3,Address Line4,Suburb,,,,,,EmploymentEndReason,FundID,FundName,FundEmployerID,MemberID,,,,,,OtherContributorName,YourContributionReference
+", data);
+        }
     }
 }

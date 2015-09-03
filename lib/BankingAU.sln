@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingAU", "BankingAU.csproj", "{7D179109-145E-4C1E-9F93-172326744A22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingAU", "BankingAU\BankingAU.csproj", "{7D179109-145E-4C1E-9F93-172326744A22}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E768762D-7A01-45B0-BEB4-DA8CE7827644}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E76876
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingAU.tests", "..\BankingAU.tests\BankingAU.tests.csproj", "{3A05ED1A-B555-4F9E-B57E-F0A94B63B3E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingAU.tests", "BankingAU.tests\BankingAU.tests.csproj", "{3A05ED1A-B555-4F9E-B57E-F0A94B63B3E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

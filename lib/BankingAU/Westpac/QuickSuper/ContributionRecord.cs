@@ -47,6 +47,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// Note: This value must be the same for every contribution detail record in the file.
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string YourFileReference;
 
         /// <summary>
@@ -76,12 +77,14 @@ namespace Banking.AU.Westpac.QuickSuper
         /// For clients with a Multiple Employer Facility, you must provide the unique identifier for the employer within your facility.
         /// Conditional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string EmployerID;
 
         /// <summary>
         /// The ID representing the employee in your own payroll system. That is, your unique identifier for the employee. 
         /// Optional.  
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string PayrollID;
 
         /// <summary>
@@ -94,6 +97,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// Also known as surname, this field is required to assist funds in allocating contributions. 
         /// Mandatory.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string FamilyName;
 
         /// <summary>
@@ -101,6 +105,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// You should provide the full given name and not just the first initial. 
         /// Mandatory.  
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string GivenName;
 
         /// <summary>
@@ -109,6 +114,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// If you only have the first initial of the employee’s other given name, then this is acceptable to provide. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string OtherGivenName;
 
         /// <summary>
@@ -131,48 +137,56 @@ namespace Banking.AU.Westpac.QuickSuper
         /// <summary>
         /// Optional. However you must provide the employee’s TFN if it has been provided to you.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string TaxFileNumber;
 
         /// <summary>
         /// Landline or fixed number to use if required to contact the employee. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string PhoneNumber;
 
         /// <summary>
         /// Mobile number to use if required to contact the employee. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string MobileNumber;
 
         /// <summary>
         /// Email address to use if required to contact the employee. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string EmailAddress;
 
         /// <summary>
         /// Applicable for Australian or international addresses. 
         /// Conditional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string AddressLine1;
 
         /// <summary>
         /// Applicable for Australian or international addresses. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string AddressLine2;
 
         /// <summary>
         /// Applicable for Australian or international addresses. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string AddressLine3;
 
         /// <summary>
         /// Applicable for Australian or international addresses. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string AddressLine4;
 
         /// <summary>
@@ -180,12 +194,14 @@ namespace Banking.AU.Westpac.QuickSuper
         /// Australian suburb aligned with the specified post code. 
         /// Conditional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string Suburb;
 
         /// <summary>
         /// Applicable for Australian addresses only. 
         /// Restricted values: AAT, ACT, NSW, NT, QLD, SA, TAS, VIC, WA.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string State;
 
         /// <summary>
@@ -193,6 +209,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// Australian post code aligned with the specified suburb.
         /// Conditional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string PostCode;
 
         /// <summary>
@@ -202,6 +219,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// Blank indicates an Australia address. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string Country;
 
         /// <summary>
@@ -225,6 +243,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// ‘RESIGNED’, ‘RETIREMENT’, ‘DEATH’, ‘DISABLEMENT’, ‘LWOP’ (Leave Without Pay), ‘PARENTAL’ (Parental leave, including maternity and paternity leave), ‘TRANSFER’ (Company transfer to a separate employer within the same parent company), ‘OTHER’ (Other reason not able to be classified using the previous codes).
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string EmploymentEndReason;
 
         /// <summary>
@@ -233,6 +252,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// Valid options (in order of preference) are Full client Fund ID ('QS12345XYZ' or 'QS123477788899901'); Partial client Fund ID without Client ID ('XYZ' or '77788899901'); Unique Superannutaion Identifier (USI, '12345678901001' or 'XXX9999AU'); Historical Fund ID ('SPINXXX9999AU' or 'ABN12345678901'); Superannuation Product Identification Number (SPIN, 'XXX9999AU'); or ABN of SMSF ('12345678901').
         /// Mandatory.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string FundID;
 
         /// <summary>
@@ -240,6 +260,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// This value is not used by QuickSuper. It is included for readability purposes only. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string FundName;
 
         /// <summary>
@@ -247,6 +268,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// You may include the allocated value in this field and it will be provided to the fund on the remittance.
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string FundEmployerID;
 
         /// <summary>
@@ -254,6 +276,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// If the employee is a new member to the fund or the fund does not have member numbers (e.g. SMSF), you may leave this field blank.
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string MemberID;
 
         /// <summary>
@@ -285,12 +308,14 @@ namespace Banking.AU.Westpac.QuickSuper
         /// Only accepted value is "SPOUSE".
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string OtherContributorType;
 
         /// <summary>
         /// This field indicates the contributing spouse for a spouse contribution. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string OtherContributorName;
 
         /// <summary>
@@ -298,6 +323,7 @@ namespace Banking.AU.Westpac.QuickSuper
         /// It is not provided on to the fund. 
         /// Optional.
         /// </summary>
+        [FieldConverter(typeof(StringReplaceConverter), ReplaceType.Comma | ReplaceType.Newline)]
         public string YourContributionReference;
     }
 }
