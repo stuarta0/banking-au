@@ -39,7 +39,9 @@ namespace Banking.AU.Common.Validation
         {
             var other = obj as ValidationError<T>;
             if (other != null)
-                return (object.Equals(Item, other.Item) && object.Equals(MemberName, other.MemberName));
+                return object.Equals(Item, other.Item) 
+                    && object.Equals(MemberName, other.MemberName)
+                    && object.Equals(Message, other.Message);
             return base.Equals(obj);
         }
     }

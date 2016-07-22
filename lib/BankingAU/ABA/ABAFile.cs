@@ -31,12 +31,12 @@ namespace Banking.AU.ABA
             decimal net = 0, credit = 0, debit = 0;
             foreach (var detail in DetailRecords)
             {
-                net += detail.Amount;
                 if (detail.TransactionCode == TransactionCode.CreditItem)
                     credit += detail.Amount;
                 else if (detail.TransactionCode == TransactionCode.DebitItem)
                     debit += detail.Amount;
             }
+            net = Math.Abs(debit - credit);
 
             return new FileTotalRecord()
             {

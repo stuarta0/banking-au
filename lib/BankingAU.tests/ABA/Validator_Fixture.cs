@@ -22,12 +22,14 @@ namespace Banking.AU.tests.ABA
             var errors = new Validator().Validate(file);
 
             // Assert
-            Assert.IsTrue(errors.Contains(new ValidationError<AbaFile>(file, "FileTotalRecord", string.Empty)));
+            Assert.IsTrue(errors.Contains(new ValidationError<AbaFile>(file, "FileTotalRecord", "FileTotalRecord must be provided.")));
         }
 
         [Test]
         public void FileTotalRecord_bsb_valid()
         {
+            // TODO: use validator specifically for FileTotalRecord
+
             // Arrange
             var validator = new Validator();
             var file = new AbaFile();
@@ -45,6 +47,54 @@ namespace Banking.AU.tests.ABA
         }
 
         [Test]
+        public void FileTotalRecord_SumOfCount1_validation()
+        {
+            // Arrange
+            var validator = new Validator();
+            var file = new AbaFile();
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord());
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord());
+            file.FileTotalRecord = new AU.ABA.Records.FileTotalRecord()
+            {
+                CountOfType1 = 0
+            };
+
+            // Act
+            var errors = validator.Validate(file);
+
+            // Assert
+            var sum = new ValidationError<AbaFile>(file, "FileTotalRecord", "SumOfCount1 does not equal the total number of DetailRecords.");
+            Assert.IsTrue(errors.Contains(sum));
+        }
+
+        [Test]
+        public void FileTotalRecord_sum_validation()
+        {
+            // Arrange
+            var validator = new Validator();
+            var file = new AbaFile();
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.CreditItem, Amount = 50.00m });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.CreditItem, Amount = 50.00m });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.DebitItem, Amount = 10.00m });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.DebitItem, Amount = 10.00m });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.Pay, Amount = 20.00m });
+            file.FileTotalRecord = new AU.ABA.Records.FileTotalRecord()
+            {
+                CreditTotalAmount = 10.00m,
+                DebitTotalAmount = 10.00m,
+                NetTotalAmount = 50.00m
+            };
+
+            // Act
+            var errors = validator.Validate(file);
+            
+            // Assert
+            Assert.IsTrue(errors.Contains(new ValidationError<AbaFile>(file, "FileTotalRecord", "DebitTotalAmount does not match sum of all DebitItems.")));
+            Assert.IsTrue(errors.Contains(new ValidationError<AbaFile>(file, "FileTotalRecord", "CreditTotalAmount does not match sum of all CreditItems.")));
+            Assert.IsTrue(errors.Contains(new ValidationError<AbaFile>(file, "FileTotalRecord", "NetTotalAmount does not match the difference of credit and debit items.")));
+        }
+
+        [Test]
         public void GenerateTotalRecord_total_is_debit_credit_diff()
         {
             // Arrange
@@ -55,22 +105,21 @@ namespace Banking.AU.tests.ABA
             file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.DebitItem, Amount = 10.00m });
             file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.DebitItem, Amount = 10.00m });
             file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.Pay, Amount = 20.00m });
-            file.FileTotalRecord = file.GenerateTotalRecord();
 
             // Act
-            var errors = validator.Validate(file);
+            file.FileTotalRecord = file.GenerateTotalRecord();
 
             // Assert
-            var total = new ValidationError<AbaFile>(file, "FileTotalRecord.NetTotalAmount", string.Empty);
-            Assert.IsTrue(!errors.Contains(total));
             Assert.AreEqual(80.00m, file.FileTotalRecord.NetTotalAmount);
             Assert.AreEqual(100.00m, file.FileTotalRecord.CreditTotalAmount);
             Assert.AreEqual(20.00m, file.FileTotalRecord.DebitTotalAmount);
         }
 
         [Test]
-        public void GenerateTotalRecord_total_is_not_truncated()
+        public void FileTotalRecord_total_is_not_truncated()
         {
+            // TODO: use validator specifically for FileTotalRecord
+
             // Arrange
             var validator = new Validator();
             var file = new AbaFile();

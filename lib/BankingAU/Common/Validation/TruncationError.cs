@@ -6,13 +6,13 @@ namespace Banking.AU.Common.Validation
         where T : class
     {
         public TruncationError(T item, string member)
-            : base(item, member)
+            : base(item, member, string.Empty)
         {
             Message = String.Concat(member, " will be truncated.");
         }
 
         public TruncationError(T item, string member, int max)
-            : base(item, member)
+            : base(item, member, string.Empty)
         {
             Message = String.Concat(member, " must be less than ", max, " or it will be truncated.");
         }
