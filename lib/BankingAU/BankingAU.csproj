@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ABA\AbaFile.cs" />
+    <Compile Include="ABA\Validator.cs" />
     <Compile Include="Common\Converters\StringReplaceConverter.cs" />
     <Compile Include="Common\Converters\StringFormatConverter.cs" />
     <Compile Include="Common\Converters\CurrencyConverter.cs" />
@@ -70,6 +71,9 @@
     <Compile Include="Common\IFileIO.cs" />
     <Compile Include="Common\Validation\IValidationError.cs" />
     <Compile Include="Common\IValidator.cs" />
+    <Compile Include="Common\Validation\FormatError.cs" />
+    <Compile Include="Common\Validation\TypeError.cs" />
+    <Compile Include="Common\Validation\TruncationError.cs" />
     <Compile Include="Common\Validation\ValidationError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

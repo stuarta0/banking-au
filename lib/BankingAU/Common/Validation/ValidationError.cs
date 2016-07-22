@@ -29,5 +29,18 @@ namespace Banking.AU.Common.Validation
             MemberName = member;
             Message = message;
         }
+
+        public override int GetHashCode()
+        {
+            return Item.GetHashCode() + MemberName.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as ValidationError<T>;
+            if (other != null)
+                return (object.Equals(Item, other.Item) && object.Equals(MemberName, other.MemberName));
+            return base.Equals(obj);
+        }
     }
 }
