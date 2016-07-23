@@ -10,13 +10,20 @@ namespace Banking.AU.Common.Converters
     /// </summary>
     public class CurrencyConverter : ConverterBase
     {
-        public CurrencyConverter()
-        { }
+        private bool _enforceUnsigned;
+
+        public CurrencyConverter(bool enforceUnsigned = false)
+        {
+            _enforceUnsigned = enforceUnsigned;
+        }
 
         public override string FieldToString(object from)
         {
             if (from is decimal)
-                return ((int)(((decimal)from) * 100)).ToString();
+            {
+                var value = ((int)(((decimal)from) * 100));
+                return (_enforceUnsigned ? Math.Abs(value) : value).ToString();
+            };
             return string.Empty;
         }
 
@@ -24,8 +31,18 @@ namespace Banking.AU.Common.Converters
         {
             decimal result;
             if (Decimal.TryParse(from, out result))
-                return result / 100;
+                return (_enforceUnsigned ? Math.Abs(result) : result) / 100;
             return 0;
         }
+    }
+
+    /// <summary>
+    /// Convenience class to improve readability.
+    /// </summary>
+    public class UnsignedCurrencyConverter : CurrencyConverter
+    {
+        public UnsignedCurrencyConverter()
+            : base(true)
+        { }
     }
 }

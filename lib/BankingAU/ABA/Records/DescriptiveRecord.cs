@@ -12,7 +12,7 @@ namespace Banking.AU.ABA.Records
         public int RecordType;
 
         [FieldFixedLength(17)]
-        public string Blank1;
+        public readonly string Blank1;
 
         /// <summary>
         /// Identifies multiple files in a single batch. Must start at 1.
@@ -29,7 +29,7 @@ namespace Banking.AU.ABA.Records
         public string FinancialInstitution;
 
         [FieldFixedLength(7)]
-        public string Blank2;
+        public readonly string Blank2;
 
         /// <summary>
         /// Must be User Preferred Specification as advised by User's FI. All coded character set valid. Must not be all blanks.
@@ -56,7 +56,7 @@ namespace Banking.AU.ABA.Records
         public DateTime ProcessDate;
 
         [FieldFixedLength(40)]
-        public string Blank3;
+        public readonly string Blank3;
 
         public DescriptiveRecord()
         {

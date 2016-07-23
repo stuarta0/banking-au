@@ -22,14 +22,14 @@ namespace Banking.AU.ABA.Records
         public string Bsb;
 
         [FieldFixedLength(12)]
-        public string Blank1;
+        public readonly string Blank1;
 
         /// <summary>
         /// Must equal the difference between File Credit & File Debit Total Amounts.
         /// </summary>
         [FieldFixedLength(10)]
         [FieldAlign(AlignMode.Right, '0')]
-        [FieldConverter(typeof(CurrencyConverter))]
+        [FieldConverter(typeof(UnsignedCurrencyConverter))]
         public decimal NetTotalAmount;
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Banking.AU.ABA.Records
         /// </summary>
         [FieldFixedLength(10)]
         [FieldAlign(AlignMode.Right, '0')]
-        [FieldConverter(typeof(CurrencyConverter))]
+        [FieldConverter(typeof(UnsignedCurrencyConverter))]
         public decimal CreditTotalAmount;
 
         /// <summary>
@@ -45,11 +45,11 @@ namespace Banking.AU.ABA.Records
         /// </summary>
         [FieldFixedLength(10)]
         [FieldAlign(AlignMode.Right, '0')]
-        [FieldConverter(typeof(CurrencyConverter))]
+        [FieldConverter(typeof(UnsignedCurrencyConverter))]
         public decimal DebitTotalAmount;
 
         [FieldFixedLength(24)]
-        public string Blank2;
+        public readonly string Blank2;
 
         /// <summary>
         /// Must equal accumulated number of Record Type 1 items on the file.
@@ -59,7 +59,7 @@ namespace Banking.AU.ABA.Records
         public int CountOfType1;
 
         [FieldFixedLength(40)]
-        public string Blank3;
+        public readonly string Blank3;
 
         public FileTotalRecord()
         {

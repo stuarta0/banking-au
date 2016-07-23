@@ -49,7 +49,7 @@ namespace Banking.AU.ABA.Records
         /// </summary>
         [FieldFixedLength(10)]
         [FieldAlign(AlignMode.Right, '0')]
-        [FieldConverter(typeof(CurrencyConverter))]
+        [FieldConverter(typeof(UnsignedCurrencyConverter))]
         public decimal Amount;
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Banking.AU.ABA.Records
         /// </summary>
         [FieldFixedLength(8)]
         [FieldAlign(AlignMode.Right, '0')]
-        [FieldConverter(typeof(CurrencyConverter))]
+        [FieldConverter(typeof(UnsignedCurrencyConverter))]
         public decimal WithholdingTaxAmount;
 
         public DetailRecord()

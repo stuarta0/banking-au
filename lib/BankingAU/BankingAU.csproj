@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ABA\AbaFile.cs" />
+    <Compile Include="ABA\DetailRecordValidator.cs" />
+    <Compile Include="ABA\FileTotalRecordValidator.cs" />
     <Compile Include="ABA\Validator.cs" />
     <Compile Include="Common\Converters\StringReplaceConverter.cs" />
     <Compile Include="Common\Converters\StringFormatConverter.cs" />
