@@ -10,7 +10,7 @@ namespace Banking.AU.ABA.Records
     public class DetailRecord
     {
         [FieldFixedLength(1)]
-        public int RecordType;
+        public readonly int RecordType;
 
         /// <summary>
         /// Use <see cref="Banking.AU.Common.Bsb"/> for correct format. 

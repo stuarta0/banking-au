@@ -25,26 +25,26 @@ namespace Banking.AU.tests.ABA
             Assert.IsTrue(errors.Contains(new ValidationError<AbaFile>(file, "FileTotalRecord", "FileTotalRecord must be provided.")));
         }
 
-        [Test]
-        public void FileTotalRecord_bsb_valid()
-        {
-            // TODO: use validator specifically for FileTotalRecord
+        //[Test]
+        //public void FileTotalRecord_bsb_valid()
+        //{
+        //    // TODO: use validator specifically for FileTotalRecord
 
-            // Arrange
-            var validator = new Validator();
-            var file = new AbaFile();
-            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord());
+        //    // Arrange
+        //    var validator = new Validator();
+        //    var file = new AbaFile();
+        //    file.DetailRecords.Add(new AU.ABA.Records.DetailRecord());
 
-            // Act
-            var errors1 = validator.Validate(file);
-            file.FileTotalRecord.Bsb = "123-456";
-            var errors2 = validator.Validate(file);
+        //    // Act
+        //    var errors1 = validator.Validate(file);
+        //    file.FileTotalRecord.Bsb = "123-456";
+        //    var errors2 = validator.Validate(file);
 
-            // Assert
-            var bsb = new FormatError<AbaFile>(file, "FileTotalRecord.Bsb", "999-999");
-            Assert.IsTrue(!errors1.Contains(bsb));
-            Assert.IsTrue(errors2.Contains(bsb));
-        }
+        //    // Assert
+        //    var bsb = new FormatError<AbaFile>(file, "FileTotalRecord.Bsb", "999-999");
+        //    Assert.IsTrue(!errors1.Contains(bsb));
+        //    Assert.IsTrue(errors2.Contains(bsb));
+        //}
 
         [Test]
         public void FileTotalRecord_SumOfCount1_validation()

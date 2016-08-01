@@ -40,7 +40,7 @@ namespace Banking.AU.ABA
 
             return new FileTotalRecord()
             {
-                Bsb = "999-999",
+                // Bsb = "999-999",
                 NetTotalAmount = net,
                 CreditTotalAmount = credit,
                 DebitTotalAmount = debit,

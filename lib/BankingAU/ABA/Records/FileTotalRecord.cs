@@ -13,13 +13,13 @@ namespace Banking.AU.ABA.Records
         /// Must be 7.
         /// </summary>
         [FieldFixedLength(1)]
-        public int RecordType;
+        public readonly int RecordType;
 
         /// <summary>
         /// Must be 999-999.
         /// </summary>
         [FieldFixedLength(7)]
-        public string Bsb;
+        public readonly string Bsb;
 
         [FieldFixedLength(12)]
         public readonly string Blank1;

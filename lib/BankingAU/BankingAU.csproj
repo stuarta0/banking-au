@@ -44,6 +44,16 @@
     <Compile Include="ABA\AbaFile.cs" />
     <Compile Include="ABA\DetailRecordValidator.cs" />
     <Compile Include="ABA\FileTotalRecordValidator.cs" />
+    <Compile Include="ABA\Validation\Builtins\AbaValidator.cs" />
+    <Compile Include="ABA\Validation\Builtins\FileTotalValidator.cs" />
+    <Compile Include="ABA\Validation\CompositeValidator.cs" />
+    <Compile Include="ABA\Validation\CurrencyValidator.cs" />
+    <Compile Include="ABA\Validation\Builtins\DetailRecordValidator.cs" />
+    <Compile Include="ABA\Validation\BsbValidator.cs" />
+    <Compile Include="ABA\Validation\Delegates.cs" />
+    <Compile Include="ABA\Validation\Error.cs" />
+    <Compile Include="ABA\Validation\IError.cs" />
+    <Compile Include="ABA\Validation\IValidator.cs" />
     <Compile Include="ABA\Validator.cs" />
     <Compile Include="Common\Converters\StringReplaceConverter.cs" />
     <Compile Include="Common\Converters\StringFormatConverter.cs" />
@@ -98,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ABA\Validation\DetailRecord\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

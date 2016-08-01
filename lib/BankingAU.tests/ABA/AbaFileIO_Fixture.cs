@@ -69,7 +69,7 @@ namespace Banking.AU.tests.ABA
             });
             file.FileTotalRecord = new FileTotalRecord()
             {
-				Bsb = "999-999",
+				// Bsb = "999-999",
 				NetTotalAmount = 1234.56m,
 				CreditTotalAmount = 1234.56m,
 				DebitTotalAmount = 0m,
