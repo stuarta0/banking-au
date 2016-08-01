@@ -44,6 +44,7 @@
     <Compile Include="ABA\AbaFile.cs" />
     <Compile Include="ABA\DetailRecordValidator.cs" />
     <Compile Include="ABA\FileTotalRecordValidator.cs" />
+    <Compile Include="ABA\Validation\AbaFile\CountOfType1Validator.cs" />
     <Compile Include="ABA\Validation\Builtins\AbaValidator.cs" />
     <Compile Include="ABA\Validation\Builtins\FileTotalValidator.cs" />
     <Compile Include="ABA\Validation\CharsetValidator.cs" />
@@ -112,9 +113,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ABA\Validation\DetailRecord\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

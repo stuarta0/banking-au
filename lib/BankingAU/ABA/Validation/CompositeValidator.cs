@@ -14,13 +14,13 @@ namespace Banking.AU.ABA.Validation
             _validators = validators;
         }
 
-        public void Clean(T item)
+        public virtual void Clean(T item)
         {
             foreach (var v in _validators)
                 v.Clean(item);
         }
 
-        public IEnumerable<IError> Validate(T item)
+        public virtual IEnumerable<IError> Validate(T item)
         {
             foreach (var v in _validators)
                 foreach (var e in v.Validate(item))
