@@ -15,6 +15,7 @@ namespace Banking.AU.ABA.Validation.Builtins
                 new CurrencyValidator<R.FileTotalRecord>(10, r => r.CreditTotalAmount, (r,v) => r.CreditTotalAmount = v),
                 new CurrencyValidator<R.FileTotalRecord>(10, r => r.DebitTotalAmount, (r,v) => r.DebitTotalAmount = v),
                 new CurrencyValidator<R.FileTotalRecord>(10, r => r.NetTotalAmount, (r,v) => r.NetTotalAmount = v)
+                // TODO: count of type 1 (might be part of AbaValidator instead)
             };
         }
     }

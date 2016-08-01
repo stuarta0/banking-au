@@ -11,6 +11,8 @@ namespace Banking.AU.ABA.Validation
         private SetValue<T, decimal> _set;
         public CurrencyValidator(int fieldLength, GetValue<T, decimal> get)
         {
+            if (fieldLength < 2)
+                throw new ArgumentException("fieldLength must be 2 or greater.");
             _fieldLength = fieldLength;
             _get = get;
         }
