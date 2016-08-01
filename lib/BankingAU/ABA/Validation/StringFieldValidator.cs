@@ -5,6 +5,10 @@ using System.Text.RegularExpressions;
 
 namespace Banking.AU.ABA.Validation
 {
+    /// <summary>
+    /// Checks a string field for possible truncation (optionally can be null or empty) 
+    /// and that non-empty values meet a Regex criteria.
+    /// </summary>
     public class StringFieldValidator<T> : IValidator<T>
     {
         private GetValue<T, string> _get;
@@ -28,10 +32,10 @@ namespace Banking.AU.ABA.Validation
         {
             _regex = new RegexValidator<T>(charset, get);
         }
-        public StringFieldValidator(int maxLength, Regex charset, GetValue<T, string> get, SetValue<T, string> set)
+        public StringFieldValidator(int maxLength, Regex charset, Regex replacement, GetValue<T, string> get, SetValue<T, string> set)
             : this(maxLength, get)
         {
-            _regex = new RegexValidator<T>(charset, get, set);
+            _regex = new RegexValidator<T>(charset, replacement, get, set);
             _set = set;
         }
 
