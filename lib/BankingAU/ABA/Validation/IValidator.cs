@@ -6,7 +6,7 @@ namespace Banking.AU.ABA.Validation
 {
     public interface IValidator<T>
     {
-        IEnumerable<IError> Validate(T item);
+        IEnumerable<Exception> Validate(T item);
         void Clean(T item);
     }
 }

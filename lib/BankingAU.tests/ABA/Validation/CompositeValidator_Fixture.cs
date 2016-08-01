@@ -19,7 +19,7 @@ namespace Banking.AU.tests.ABA.Validation.DetailRecord
         private class FakeValidator : IValidator<FakeItem>
         {
             public void Clean(FakeItem item) { item.VisitedCount++; }
-            public IEnumerable<IError> Validate(FakeItem item) { item.VisitedCount++; yield break; }
+            public IEnumerable<Exception> Validate(FakeItem item) { item.VisitedCount++; yield break; }
         }
 
         private IValidator<FakeItem> GetValidator()
@@ -36,7 +36,7 @@ namespace Banking.AU.tests.ABA.Validation.DetailRecord
         {
             var f = new FakeItem();
             // Note: without iterating the error list, Validation will not be performed
-            var errors = new List<IError>(GetValidator().Validate(f));
+            var errors = new List<Exception>(GetValidator().Validate(f));
             Assert.AreEqual(2, f.VisitedCount);
         }
 

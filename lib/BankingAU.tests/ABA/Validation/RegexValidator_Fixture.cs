@@ -31,21 +31,21 @@ namespace Banking.AU.tests.ABA.Validation.DetailRecord
         [Test]
         public void Validate_correct()
         {
-            var errors = new List<IError>(GetValidator().Validate(new FakeItem("1234")));
+            var errors = new List<Exception>(GetValidator().Validate(new FakeItem("1234")));
             Assert.AreEqual(0, errors.Count);
         }
 
         [Test]
         public void Validate_null()
         {
-            var errors = new List<IError>(GetValidator().Validate(new FakeItem(null)));
+            var errors = new List<Exception>(GetValidator().Validate(new FakeItem(null)));
             Assert.IsNotNull(errors.Find(e => "Value cannot be null".Equals(e.Message)));
         }
 
         [Test]
         public void Validate_incorrect()
         {
-            var errors = new List<IError>(GetValidator().Validate(new FakeItem("1234abc")));
+            var errors = new List<Exception>(GetValidator().Validate(new FakeItem("1234abc")));
             Assert.IsNotNull(errors.Find(e => "Value '1234abc' does not match pattern: ^[0-9]{4}$".Equals(e.Message)));
         }
 

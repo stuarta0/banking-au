@@ -20,6 +20,7 @@ namespace Banking.AU.ABA.Validation.Builtins
             _fileTotal = new FileTotalValidator();
         }
 
+        public override void Clean(R.AbaFile item)
         {
             foreach (var r in item.DetailRecords)
                 _detailRecord.Clean(r);
@@ -29,6 +30,7 @@ namespace Banking.AU.ABA.Validation.Builtins
             base.Clean(item);
         }
 
+        public override IEnumerable<Exception> Validate(R.AbaFile item)
         {
             foreach (var r in item.DetailRecords)
                 foreach (var e in _detailRecord.Validate(r))

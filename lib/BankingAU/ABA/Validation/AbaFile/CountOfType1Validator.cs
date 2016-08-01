@@ -12,10 +12,10 @@ namespace Banking.AU.ABA.Validation.AbaFile
             item.FileTotalRecord.CountOfType1 = item.DetailRecords.Count;
         }
 
-        public IEnumerable<IError> Validate(R.AbaFile item)
+        public IEnumerable<Exception> Validate(R.AbaFile item)
         {
             if (item.FileTotalRecord.CountOfType1 != item.DetailRecords.Count)
-                yield return new Error("CountOfType1 is incorrect");
+                yield return new Exception("CountOfType1 is does not match count of detail records");
         }
     }
 }

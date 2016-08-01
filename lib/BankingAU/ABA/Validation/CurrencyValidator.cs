@@ -23,15 +23,15 @@ namespace Banking.AU.ABA.Validation
             _set = set;
         }
 
-        private IEnumerable<IError> Validate(decimal value)
+        private IEnumerable<Exception> Validate(decimal value)
         {
             if (value < 0)
-                yield return new Error("Value must be greater than zero.");
+                yield return new ArgumentOutOfRangeException("Value must be greater than zero.", (Exception)null);
 
             // 10 chars in cents = $99,999,999.99 (8 digits dollars, 2 digits cents)
             var max = new decimal(Math.Pow(10, _fieldLength - 2)); 
             if (value >= max)
-                yield return new Error(String.Format("Value must be less than {0:C2}", max));
+                yield return new ArgumentOutOfRangeException(String.Format("Value must be less than {0:C2}", max), (Exception)null);
         }
 
         public void Clean(T item)
@@ -40,11 +40,11 @@ namespace Banking.AU.ABA.Validation
                 throw new MissingMethodException("Cleaning currency requires a set method.");
             var value = Math.Abs(_get(item));
             foreach (var e in Validate(value))
-                throw new ArgumentOutOfRangeException(e.Message, (Exception)null);
+                throw e;
             _set(item, value);
         }
 
-        public IEnumerable<IError> Validate(T item)
+        public IEnumerable<Exception> Validate(T item)
         {
             return Validate(_get(item));
         }

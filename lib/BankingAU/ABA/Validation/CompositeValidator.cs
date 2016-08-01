@@ -20,7 +20,7 @@ namespace Banking.AU.ABA.Validation
                 v.Clean(item);
         }
 
-        public virtual IEnumerable<IError> Validate(T item)
+        public virtual IEnumerable<Exception> Validate(T item)
         {
             foreach (var v in _validators)
                 foreach (var e in v.Validate(item))

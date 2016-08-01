@@ -51,18 +51,18 @@ namespace Banking.AU.ABA.Validation
             }
         }
 
-        public IEnumerable<IError> Validate(T item)
+        public IEnumerable<Exception> Validate(T item)
         {
             var value = _get(item);
             if (String.IsNullOrEmpty(value))
             {
                 if (!AllowNull)
-                    yield return new Error("String field must have a value");
+                    yield return new ArgumentNullException("String field must have a value");
             }
             else
             {
                 if (value.Length > _maxLength)
-                    yield return new Error(String.Format("'{0}' exceeds max length of {1}", value, _maxLength));
+                    yield return new ArgumentOutOfRangeException(String.Format("'{0}' exceeds max length of {1}", value, _maxLength), (Exception)null);
                 if (_regex != null)
                     foreach (var e in _regex.Validate(item))
                         yield return e;

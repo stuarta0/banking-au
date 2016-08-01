@@ -17,9 +17,9 @@ namespace Banking.AU.ABA.Validation
     /// </example>
     public class RegexValidator<T> : IValidator<T>
     {
-        private Regex _charset, _replacement;
-        private GetValue<T, string> _get;
-        private SetValue<T, string> _set;
+        protected Regex _charset, _replacement;
+        protected GetValue<T, string> _get;
+        protected SetValue<T, string> _set;
         public RegexValidator(Regex charset, GetValue<T, string> get)
         {
             _charset = charset;
@@ -32,15 +32,15 @@ namespace Banking.AU.ABA.Validation
             _set = set;
         }
 
-        private IEnumerable<IError> Validate(string value)
+        protected virtual IEnumerable<Exception> Validate(string value)
         {
             if (value == null)
-                yield return new Error("Value cannot be null");
+                yield return new ArgumentNullException("Value cannot be null", (Exception)null);
             else if (!_charset.IsMatch(value))
-                yield return new Error(String.Format("Value '{0}' does not match pattern: {1}", value, _charset.ToString()));
+                yield return new FormatException(String.Format("Value '{0}' does not match pattern: {1}", value, _charset.ToString()));
         }
 
-        public void Clean(T item)
+        public virtual void Clean(T item)
         {
             if (_set == null || _replacement == null)
                 throw new MissingMethodException("Cleaning string requires a set method and replacement regex.");
@@ -49,11 +49,11 @@ namespace Banking.AU.ABA.Validation
                 throw new ArgumentNullException("Value cannot be null");
             value = _replacement.Replace(value, "");
             foreach (var e in Validate(value))
-                throw new FormatException(e.Message);
+                throw e;
             _set(item, value);    
         }
 
-        public IEnumerable<IError> Validate(T item)
+        public virtual IEnumerable<Exception> Validate(T item)
         {
             return Validate(_get(item));
         }

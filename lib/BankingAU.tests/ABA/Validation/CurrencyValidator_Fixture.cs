@@ -29,14 +29,14 @@ namespace Banking.AU.tests.ABA.Validation.DetailRecord
         [Test]
         public void Zero_valid()
         {
-            var errors = new List<IError>(GetValidator(10).Validate(new FakeItem()));
+            var errors = new List<Exception>(GetValidator(10).Validate(new FakeItem()));
             Assert.IsTrue(errors.Count == 0);
         }
 
         [Test]
         public void Negative_invalid()
         {
-            var errors = new List<IError>(GetValidator(10).Validate(new FakeItem(-10.00m)));
+            var errors = new List<Exception>(GetValidator(10).Validate(new FakeItem(-10.00m)));
             Assert.IsNotNull(errors.Find(e => "Value must be greater than zero.".Equals(e.Message)));
         }
 
@@ -44,7 +44,7 @@ namespace Banking.AU.tests.ABA.Validation.DetailRecord
         public void Max_exceeded()
         {
             // 5 chars = 000.00 therefore < $1,000.00 (up to $999.99)
-            var errors = new List<IError>(GetValidator(5).Validate(new FakeItem(1000.00m)));
+            var errors = new List<Exception>(GetValidator(5).Validate(new FakeItem(1000.00m)));
             Assert.IsNotNull(errors.Find(e => "Value must be less than $1,000.00".Equals(e.Message)));
         }
 

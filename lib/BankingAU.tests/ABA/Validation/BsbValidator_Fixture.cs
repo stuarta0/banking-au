@@ -29,21 +29,21 @@ namespace Banking.AU.tests.ABA.Validation.DetailRecord
         [Test]
         public void Is_empty()
         {
-            var errors = new List<IError>(GetValidator().Validate(new FakeItem()));
+            var errors = new List<Exception>(GetValidator().Validate(new FakeItem()));
             Assert.IsNotNull(errors.Find(e => "BSB cannot be empty".Equals(e.Message)));
         }
 
         [Test]
         public void Format_valid()
         {
-            var errors = new List<IError>(GetValidator().Validate(new FakeItem("123-456")));
+            var errors = new List<Exception>(GetValidator().Validate(new FakeItem("123-456")));
             Assert.IsNull(errors.Find(e => "BSB must be in the format \"000-000\"".Equals(e.Message)));
         }
 
         [Test]
         public void Format_invalid()
         {
-            var errors = new List<IError>(GetValidator().Validate(new FakeItem("123456")));
+            var errors = new List<Exception>(GetValidator().Validate(new FakeItem("123456")));
             Assert.IsNotNull(errors.Find(e => "BSB must be in the format \"000-000\"".Equals(e.Message)));
         }
 

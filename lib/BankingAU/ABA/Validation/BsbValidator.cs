@@ -48,16 +48,16 @@ namespace Banking.AU.ABA.Validation
             _set(item, sb.ToString());
         }
 
-        public IEnumerable<IError> Validate(T item)
+        public IEnumerable<Exception> Validate(T item)
         {
             var bsb = _get(item);
             if (String.IsNullOrEmpty(bsb))
             {
                 if (!AllowNull)
-                    yield return new Error("BSB cannot be empty");
+                    yield return new ArgumentNullException("BSB cannot be empty", (Exception)null);
             }
             else if (!rvalid.IsMatch(bsb))
-                yield return new Error("BSB must be in the format \"000-000\"");
+                yield return new FormatException("BSB must be in the format \"000-000\"");
         }
     }
 }
