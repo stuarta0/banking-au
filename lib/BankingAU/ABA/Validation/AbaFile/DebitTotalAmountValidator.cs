@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Banking.AU.ABA.Validation.AbaFile
 {
+    /// <summary>
+    /// Validator for calculating FileTotalRecord DebitTotalAmount from DetailRecords.
+    /// </summary>
     public class DebitTotalAmountValidator : TotalAmountValidator
     {
         public DebitTotalAmountValidator()

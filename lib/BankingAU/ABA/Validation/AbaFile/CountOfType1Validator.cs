@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Banking.AU.ABA.Validation.AbaFile
 {
+    /// <summary>
+    /// Validator for calculating FileTotalRecord CountOfType1 from DetailRecords.
+    /// </summary>
     public class CountOfType1Validator : IValidator<R.AbaFile>
     {
         protected virtual IEnumerable<Exception> InternalValidate(R.AbaFile item)

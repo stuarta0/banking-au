@@ -47,8 +47,9 @@
     <Compile Include="ABA\Validation\AbaFile\NetTotalAmountValidator.cs" />
     <Compile Include="ABA\Validation\AbaFile\TotalAmountValidator.cs" />
     <Compile Include="ABA\Validation\AbaFile\CountOfType1Validator.cs" />
-    <Compile Include="ABA\Validation\Builtins\AbaValidator.cs" />
-    <Compile Include="ABA\Validation\Builtins\FileTotalValidator.cs" />
+    <Compile Include="ABA\Validation\Builtins\AbaFileValidator.cs" />
+    <Compile Include="ABA\Validation\AbaFile\FileTotalValidator.cs" />
+    <Compile Include="ABA\Validation\Builtins\FileTotalRecordValidator.cs" />
     <Compile Include="ABA\Validation\DetailRecord\AccountValidator.cs" />
     <Compile Include="ABA\Validation\DetailRecord\CharsetValidator.cs" />
     <Compile Include="ABA\Validation\CompositeValidator.cs" />

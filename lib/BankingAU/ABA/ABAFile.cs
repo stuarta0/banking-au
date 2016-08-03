@@ -22,30 +22,14 @@ namespace Banking.AU.ABA
             DetailRecords = new List<DetailRecord>();
             FileTotalRecord = new FileTotalRecord();
         }
-
-        public FileTotalRecord GenerateTotalRecord()
+        
+        /// <summary>
+        /// Create or update a FileTotalRecord from this object.
+        /// Alternatively, use <see cref="Validation.Builtins.FileTotalCleaner"/>.
+        /// </summary>
+        public void GenerateTotalRecord()
         {
-            if (DetailRecords == null)
-                return null;
-
-            decimal net = 0, credit = 0, debit = 0;
-            foreach (var detail in DetailRecords)
-            {
-                if (detail.TransactionCode == TransactionCode.CreditItem)
-                    credit += detail.Amount;
-                else if (detail.TransactionCode == TransactionCode.DebitItem)
-                    debit += detail.Amount;
-            }
-            net = Math.Abs(debit - credit);
-
-            return new FileTotalRecord()
-            {
-                // Bsb = "999-999",
-                NetTotalAmount = net,
-                CreditTotalAmount = credit,
-                DebitTotalAmount = debit,
-                CountOfType1 = DetailRecords.Count
-            };
+            new Validation.AbaFile.FileTotalValidator().Clean(this);
         }
     }
 }

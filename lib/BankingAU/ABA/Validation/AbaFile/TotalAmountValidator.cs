@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Banking.AU.ABA.Validation.AbaFile
 {
+    /// <summary>
+    /// Abstract class for assisting with validating and calculating FileTotalRecord values from DetailRecords.
+    /// </summary>
     public abstract class TotalAmountValidator : CurrencyValidator<R.AbaFile>
     {
         protected Records.TransactionCode _code;
@@ -30,7 +33,7 @@ namespace Banking.AU.ABA.Validation.AbaFile
         {
             var total = 0m;
             foreach (var r in item.DetailRecords)
-                total += (r.TransactionCode == code ? r.Amount : 0);
+                total += (r.TransactionCode == code ? r.Amount : 0m);
             return total;
         }
 
