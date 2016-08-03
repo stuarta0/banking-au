@@ -8,7 +8,7 @@ namespace Banking.AU.ABA.Validation.AbaFile
     /// <summary>
     /// Generates or updates a FileTotalRecord in an AbaFile object with correct values.
     /// </summary>
-    public class FileTotalValidator : CompositeValidator<R.AbaFile>
+    public class FileTotalValidator : CompositeValidator<R.AbaFile>, ICanAdd
     {
         public FileTotalValidator()
             : base()
@@ -37,5 +37,20 @@ namespace Banking.AU.ABA.Validation.AbaFile
                 yield return new ArgumentNullException("FileTotalRecord must be provided");
             foreach (var e in base.Validate(item)) yield return e;
         }
+
+        /// <summary>
+        /// A helper function to check whether one or more DetailRecords can be added to an ABA file while maintaining aggregation validity (counts and totals).
+        /// </summary>
+        public virtual bool CanAdd(R.AbaFile file, params R.Records.DetailRecord[] records)
+        {
+            bool canAdd = true;
+            foreach (var v in _validators)
+            {
+                if (v is ICanAdd)
+                    canAdd &= ((ICanAdd)v).CanAdd(file, records);
+            }
+            return canAdd;
+        }
+
     }
 }

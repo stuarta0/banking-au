@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Banking.AU.ABA.Validation.AbaFile;
+using Banking.AU.ABA.Records;
 
 namespace Banking.AU.ABA.Validation.Builtins
 {
     /// <summary>
     /// Validates an entire AbaFile object.
     /// </summary>
-    public class AbaFileValidator : IValidator<R.AbaFile>
+    public class AbaFileValidator : IValidator<R.AbaFile>, ICanAdd
     {
         private DetailRecordValidator _detailRecord;
         private FileTotalValidator _fileTotal;
@@ -47,6 +48,11 @@ namespace Banking.AU.ABA.Validation.Builtins
 
             foreach (var e in _fileTotal.Validate(item))
                 yield return e;
+        }
+
+        public bool CanAdd(R.AbaFile file, params Records.DetailRecord[] records)
+        {
+            return _fileTotal.CanAdd(file, records);
         }
     }
 }
