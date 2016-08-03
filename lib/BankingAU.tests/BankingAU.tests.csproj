@@ -48,11 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABA\AbaFile_Fixture.cs" />
+    <Compile Include="ABA\Validation\AbaFile\CountOfType1Validator_Fixture.cs" />
+    <Compile Include="ABA\Validation\AbaFile\TotalAmountValidator_Fixture.cs" />
+    <Compile Include="ABA\Validation\Builtins\AbaValidator_Fixture.cs" />
     <Compile Include="ABA\Validation\RegexValidator_Fixture.cs" />
     <Compile Include="ABA\Validation\CompositeValidator_Fixture.cs" />
     <Compile Include="ABA\Validation\CurrencyValidator_Fixture.cs" />
     <Compile Include="ABA\Validation\BsbValidator_Fixture.cs" />
-    <Compile Include="ABA\Validator_Fixture.cs" />
+    <Compile Include="ABA\Validation\Builtins\DetailRecordValidator_Fixture.cs" />
     <Compile Include="Common\StringFormatConverter_Fixture.cs" />
     <Compile Include="Common\EnumConverter_Fixture.cs" />
     <Compile Include="Common\CurrencyConverter_Fixture.cs" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Banking.AU.ABA.Validation
+namespace Banking.AU.ABA.Validation.DetailRecord
 {
     /// <summary>
     /// Ensures a string field matches the limited charset for ABA files.

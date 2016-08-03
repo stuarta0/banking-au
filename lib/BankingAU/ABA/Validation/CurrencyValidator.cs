@@ -6,9 +6,9 @@ namespace Banking.AU.ABA.Validation
 {
     public class CurrencyValidator<T> : IValidator<T>
     {
-        private int _fieldLength;
-        private GetValue<T, decimal> _get;
-        private SetValue<T, decimal> _set;
+        protected int _fieldLength;
+        protected GetValue<T, decimal> _get;
+        protected SetValue<T, decimal> _set;
         public CurrencyValidator(int fieldLength, GetValue<T, decimal> get)
         {
             if (fieldLength < 2)
@@ -23,7 +23,7 @@ namespace Banking.AU.ABA.Validation
             _set = set;
         }
 
-        private IEnumerable<Exception> Validate(decimal value)
+        protected virtual IEnumerable<Exception> Validate(decimal value)
         {
             if (value < 0)
                 yield return new ArgumentOutOfRangeException("Value must be greater than zero.", (Exception)null);
@@ -34,7 +34,7 @@ namespace Banking.AU.ABA.Validation
                 yield return new ArgumentOutOfRangeException(String.Format("Value must be less than {0:C2}", max), (Exception)null);
         }
 
-        public void Clean(T item)
+        public virtual void Clean(T item)
         {
             if (_set == null)
                 throw new MissingMethodException("Cleaning currency requires a set method.");
@@ -44,7 +44,7 @@ namespace Banking.AU.ABA.Validation
             _set(item, value);
         }
 
-        public IEnumerable<Exception> Validate(T item)
+        public virtual IEnumerable<Exception> Validate(T item)
         {
             return Validate(_get(item));
         }

@@ -42,12 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ABA\AbaFile.cs" />
-    <Compile Include="ABA\DetailRecordValidator.cs" />
-    <Compile Include="ABA\FileTotalRecordValidator.cs" />
+    <Compile Include="ABA\Validation\AbaFile\CreditTotalAmountValidator.cs" />
+    <Compile Include="ABA\Validation\AbaFile\DebitTotalAmountValidator.cs" />
+    <Compile Include="ABA\Validation\AbaFile\NetTotalAmountValidator.cs" />
+    <Compile Include="ABA\Validation\AbaFile\TotalAmountValidator.cs" />
     <Compile Include="ABA\Validation\AbaFile\CountOfType1Validator.cs" />
     <Compile Include="ABA\Validation\Builtins\AbaValidator.cs" />
     <Compile Include="ABA\Validation\Builtins\FileTotalValidator.cs" />
-    <Compile Include="ABA\Validation\CharsetValidator.cs" />
+    <Compile Include="ABA\Validation\DetailRecord\AccountValidator.cs" />
+    <Compile Include="ABA\Validation\DetailRecord\CharsetValidator.cs" />
     <Compile Include="ABA\Validation\CompositeValidator.cs" />
     <Compile Include="ABA\Validation\CurrencyValidator.cs" />
     <Compile Include="ABA\Validation\Builtins\DetailRecordValidator.cs" />
@@ -56,7 +59,6 @@
     <Compile Include="ABA\Validation\IValidator.cs" />
     <Compile Include="ABA\Validation\RegexValidator.cs" />
     <Compile Include="ABA\Validation\StringFieldValidator.cs" />
-    <Compile Include="ABA\Validator.cs" />
     <Compile Include="Common\Converters\StringReplaceConverter.cs" />
     <Compile Include="Common\Converters\StringFormatConverter.cs" />
     <Compile Include="Common\Converters\CurrencyConverter.cs" />
