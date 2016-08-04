@@ -1,55 +1,112 @@
-﻿using NUnit.Framework;
+﻿using Banking.AU.ABA.Validation.AbaFile;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using R = Banking.AU.ABA;
 
 namespace Banking.AU.tests.ABA.Validation.AbaFile
 {
     [TestFixture]
     public class TotalAmountValidator_Fixture
     {
-        //[Test]
-        //public void FileTotalRecord_sum_validation()
-        //{
-        //    // Arrange
-        //    var validator = new Validator();
-        //    var file = new AbaFile();
-        //    file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.CreditItem, Amount = 50.00m });
-        //    file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.CreditItem, Amount = 50.00m });
-        //    file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.DebitItem, Amount = 10.00m });
-        //    file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.DebitItem, Amount = 10.00m });
-        //    file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.Pay, Amount = 20.00m });
-        //    file.FileTotalRecord = new AU.ABA.Records.FileTotalRecord()
-        //    {
-        //        CreditTotalAmount = 10.00m,
-        //        DebitTotalAmount = 10.00m,
-        //        NetTotalAmount = 50.00m
-        //    };
+        [Test]
+        public void Clean_NetTotalAmount()
+        {
+            var file = new R.AbaFile();
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 20m, TransactionCode = AU.ABA.Records.TransactionCode.DebitItem });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 50m, TransactionCode = AU.ABA.Records.TransactionCode.CreditItem });
+            new NetTotalAmountValidator().Clean(file);
+            Assert.AreEqual(30m, file.FileTotalRecord.NetTotalAmount);
+        }
 
-        //    // Act
-        //    var errors = validator.Validate(file);
+        [Test]
+        public void Clean_CreditTotalAmount()
+        {
+            var file = new R.AbaFile();
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 10m, TransactionCode = AU.ABA.Records.TransactionCode.DebitItem });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 20m, TransactionCode = AU.ABA.Records.TransactionCode.CreditItem });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 50m, TransactionCode = AU.ABA.Records.TransactionCode.CreditItem });
+            new CreditTotalAmountValidator().Clean(file);
+            Assert.AreEqual(70m, file.FileTotalRecord.CreditTotalAmount);
+        }
 
-        //    // Assert
-        //    Assert.IsTrue(errors.Contains(new ValidationError<AbaFile>(file, "FileTotalRecord", "DebitTotalAmount does not match sum of all DebitItems.")));
-        //    Assert.IsTrue(errors.Contains(new ValidationError<AbaFile>(file, "FileTotalRecord", "CreditTotalAmount does not match sum of all CreditItems.")));
-        //    Assert.IsTrue(errors.Contains(new ValidationError<AbaFile>(file, "FileTotalRecord", "NetTotalAmount does not match the difference of credit and debit items.")));
-        //}
+        [Test]
+        public void Clean_DebitTotalAmount()
+        {
+            var file = new R.AbaFile();
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 10m, TransactionCode = AU.ABA.Records.TransactionCode.CreditItem });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 20m, TransactionCode = AU.ABA.Records.TransactionCode.DebitItem });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 50m, TransactionCode = AU.ABA.Records.TransactionCode.DebitItem });
+            new DebitTotalAmountValidator().Clean(file);
+            Assert.AreEqual(70m, file.FileTotalRecord.DebitTotalAmount);
+        }
 
-        //[Test]
-        //public void FileTotalRecord_total_is_not_truncated()
-        //{
-        //    // TODO: use validator specifically for FileTotalRecord
+        [Test]
+        public void FileTotalRecord_match()
+        {
+            var file = new R.AbaFile();
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 20m, TransactionCode = AU.ABA.Records.TransactionCode.DebitItem });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 50m, TransactionCode = AU.ABA.Records.TransactionCode.DebitItem });
+            file.FileTotalRecord.DebitTotalAmount = 70m;
+            var errors = new List<Exception>(new DebitTotalAmountValidator().Validate(file));
+            Assert.IsNull(errors.Find(e => "DebitTotalAmount does not match sum of detail records".Equals(e.Message)));
+        }
 
-        //    // Arrange
-        //    var validator = new Validator();
-        //    var file = new AbaFile();
-        //    file.FileTotalRecord.NetTotalAmount = 999999999.99m;
+        [Test]
+        public void FileTotalRecord_mismatch()
+        {
+            var file = new R.AbaFile();
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 20m, TransactionCode = AU.ABA.Records.TransactionCode.DebitItem });
+            file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { Amount = 50m, TransactionCode = AU.ABA.Records.TransactionCode.DebitItem });
+            file.FileTotalRecord.DebitTotalAmount = 10m;
+            var errors = new List<Exception>(new DebitTotalAmountValidator().Validate(file));
+            Assert.IsNotNull(errors.Find(e => "DebitTotalAmount does not match sum of detail records".Equals(e.Message)));
+        }
 
-        //    // Act
-        //    var errors = validator.Validate(file);
+        [Test]
+        public void DebitTotalAmount_bounds_valid()
+        {
+            // whilst bounds checking for CurrencyValidator is tested, this specific validation subclass upper limit has not been tested
+            var file = new R.AbaFile();
+            var v = new DebitTotalAmountValidator();
+            file.FileTotalRecord.DebitTotalAmount = 99999999.00m;
+            var errors = new List<Exception>(v.Validate(file));
+            Assert.IsNull(errors.Find(e => "Value must be less than $100,000,000.00".Equals(e.Message)));
 
-        //    // Assert
-        //    Assert.IsTrue(errors.Contains(new TruncationError<AbaFile>(file, "FileTotalRecord.NetTotalAmount")));
-        //}
+            file.FileTotalRecord.DebitTotalAmount = 100000000.00m;
+            errors = new List<Exception>(v.Validate(file));
+            Assert.IsNotNull(errors.Find(e => "Value must be less than $100,000,000.00".Equals(e.Message)));
+        }
+
+        [Test]
+        public void CreditTotalAmount_bounds_valid()
+        {
+            // whilst bounds checking for CurrencyValidator is tested, this specific validation subclass upper limit has not been tested
+            var file = new R.AbaFile();
+            var v = new CreditTotalAmountValidator();
+            file.FileTotalRecord.CreditTotalAmount = 99999999.00m;
+            var errors = new List<Exception>(v.Validate(file));
+            Assert.IsNull(errors.Find(e => "Value must be less than $100,000,000.00".Equals(e.Message)));
+
+            file.FileTotalRecord.CreditTotalAmount = 100000000.00m;
+            errors = new List<Exception>(v.Validate(file));
+            Assert.IsNotNull(errors.Find(e => "Value must be less than $100,000,000.00".Equals(e.Message)));
+        }
+
+        [Test]
+        public void NetTotalAmount_bounds_valid()
+        {
+            // whilst bounds checking for CurrencyValidator is tested, this specific validation subclass upper limit has not been tested
+            var file = new R.AbaFile();
+            var v = new NetTotalAmountValidator();
+            file.FileTotalRecord.NetTotalAmount = 99999999.00m;
+            var errors = new List<Exception>(v.Validate(file));
+            Assert.IsNull(errors.Find(e => "Value must be less than $100,000,000.00".Equals(e.Message)));
+
+            file.FileTotalRecord.NetTotalAmount = 100000000.00m;
+            errors = new List<Exception>(v.Validate(file));
+            Assert.IsNotNull(errors.Find(e => "Value must be less than $100,000,000.00".Equals(e.Message)));
+        }
     }
 }
