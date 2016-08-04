@@ -18,7 +18,7 @@ namespace Banking.AU.tests.ABA
             file.DetailRecords.Add(new AU.ABA.Records.DetailRecord() { TransactionCode = AU.ABA.Records.TransactionCode.Pay, Amount = 20.00m });
 
             // Act
-            file.GenerateTotalRecord();
+            file.UpdateTotalRecord();
 
             // Assert
             Assert.AreEqual(80.00m, file.FileTotalRecord.NetTotalAmount);

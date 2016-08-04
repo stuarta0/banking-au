@@ -27,7 +27,7 @@ namespace Banking.AU.ABA
         /// Create or update a FileTotalRecord from this object.
         /// Alternatively, use <see cref="Validation.Builtins.FileTotalCleaner"/>.
         /// </summary>
-        public void GenerateTotalRecord()
+        public void UpdateTotalRecord()
         {
             new Validation.AbaFile.FileTotalValidator().Clean(this);
         }
