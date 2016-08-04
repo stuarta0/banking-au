@@ -11,8 +11,9 @@ namespace Banking.AU.ABA.Validation.DetailRecord
     /// <typeparam name="T"></typeparam>
     public class CharsetValidator<T> : StringFieldValidator<T>
     {
-        private static Regex Charset = new Regex(@"^[\s\.\<\>\(\)\+\$\*\{\}\-\?\\/,;:!@#$%&'\x22=~`|_a-zA-Z0-9]+$");
-        private static Regex Replacement = new Regex(@"[^\s\.\<\>\(\)\+\$\*\{\}\-\?\\/,;:!@#$%&'\x22=~`|_a-zA-Z0-9]");
+        private const string PATTERN = @"\s\.\<\>\(\)\+\$\*\{\}\-\?\\/,;:!@#$%&'\x22=~`|_a-zA-Z0-9";
+        private static Regex Charset = new Regex(String.Concat("^[", PATTERN, "]+$"));
+        private static Regex Replacement = new Regex(String.Concat("[^", PATTERN, "]"));
 
         public CharsetValidator(int maxLength, GetValue<T, string> get)
             : base(maxLength, Charset, get)

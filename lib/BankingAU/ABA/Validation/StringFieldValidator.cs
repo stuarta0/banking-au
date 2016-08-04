@@ -7,7 +7,7 @@ namespace Banking.AU.ABA.Validation
 {
     /// <summary>
     /// Checks a string field for possible truncation (optionally can be null or empty) 
-    /// and that non-empty values meet a Regex criteria.
+    /// and that non-empty values meet an (optional) Regex criteria.
     /// </summary>
     public class StringFieldValidator<T> : IValidator<T>
     {
@@ -21,6 +21,7 @@ namespace Banking.AU.ABA.Validation
             AllowNull = false;
             _maxLength = maxLength;
             _get = get;
+            _regex = null;
         }
         public StringFieldValidator(int maxLength, GetValue<T, string> get, SetValue<T, string> set)
             : this(maxLength, get)

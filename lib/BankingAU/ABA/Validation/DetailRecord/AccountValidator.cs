@@ -11,8 +11,9 @@ namespace Banking.AU.ABA.Validation.DetailRecord
     /// <typeparam name="T"></typeparam>
     public class AccountValidator<T> : StringFieldValidator<T>
     {
-        private static Regex Charset = new Regex(@"^[0-9a-zA-Z\-\s]+$");
-        private static Regex Replacement = new Regex(@"[^0-9a-zA-Z\-\s]");
+        private const string PATTERN = @"0-9a-zA-Z\-\s";
+        private static Regex Charset     = new Regex(String.Concat("^[", PATTERN, "]+$"));
+        private static Regex Replacement = new Regex(String.Concat("[^", PATTERN, "]"));
 
         public AccountValidator(int maxLength, GetValue<T, string> get)
             : base(maxLength, Charset, get)
