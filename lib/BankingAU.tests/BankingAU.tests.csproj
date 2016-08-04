@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ABA\AbaFile_Fixture.cs" />
     <Compile Include="ABA\Validation\AbaFile\CountOfType1Validator_Fixture.cs" />
+    <Compile Include="ABA\Validation\AbaFile\FileTotalValidator_Fixture.cs" />
     <Compile Include="ABA\Validation\AbaFile\TotalAmountValidator_Fixture.cs" />
     <Compile Include="ABA\Validation\Builtins\AbaValidator_Fixture.cs" />
     <Compile Include="ABA\Validation\RegexValidator_Fixture.cs" />

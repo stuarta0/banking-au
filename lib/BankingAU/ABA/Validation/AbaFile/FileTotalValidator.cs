@@ -34,8 +34,9 @@ namespace Banking.AU.ABA.Validation.AbaFile
         public override IEnumerable<Exception> Validate(R.AbaFile item)
         {
             if (item.FileTotalRecord == null)
-                yield return new ArgumentNullException("FileTotalRecord must be provided");
-            foreach (var e in base.Validate(item)) yield return e;
+                yield return new ArgumentNullException("FileTotalRecord must be provided", (Exception)null);
+            else
+                foreach (var e in base.Validate(item)) yield return e;
         }
 
         /// <summary>
