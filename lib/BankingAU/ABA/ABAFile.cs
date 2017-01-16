@@ -24,8 +24,7 @@ namespace Banking.AU.ABA
         }
         
         /// <summary>
-        /// Create or update a FileTotalRecord from this object.
-        /// Alternatively, use <see cref="Validation.Builtins.FileTotalCleaner"/>.
+        /// Create or update a FileTotalRecord from the current DetailRecords.
         /// </summary>
         public void UpdateTotalRecord()
         {

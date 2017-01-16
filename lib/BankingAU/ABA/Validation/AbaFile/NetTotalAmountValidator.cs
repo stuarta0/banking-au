@@ -17,8 +17,8 @@ namespace Banking.AU.ABA.Validation.AbaFile
             decimal debit = 0m, credit = 0m;
             foreach (var r in items)
             {
-                debit += (r.TransactionCode == Records.TransactionCode.DebitItem ? r.Amount : 0m);
-                credit += (r.TransactionCode == Records.TransactionCode.CreditItem ? r.Amount : 0m);
+                debit += Math.Abs(r.TransactionCode == Records.TransactionCode.DebitItem ? r.Amount : 0m);
+                credit += Math.Abs(r.TransactionCode == Records.TransactionCode.CreditItem ? r.Amount : 0m);
             }
             return Math.Abs(debit - credit);
         }
